@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title> Thesis  </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        
+        
+        
+        <nav class= " navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <img src="ass/NULOGO-Download-297x300.png" alt="logo" width="50" height="50">
+                <h1>Name Check System</h1>
+              </div>
+            </div>
+          </nav>
+
+          <style>
+            body.logo{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              opacity: 50%;
+            }
+          </style>
+
+    </head>
+    <body background="ass/Backbround.png">
+      <H3>Login</H3>
+      <form method="post" action="sever.php">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+    </body>
+</html>
