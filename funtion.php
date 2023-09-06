@@ -1,5 +1,5 @@
 <?php
-include 'scanner.js';
+
 
 // เช็คค่า value รับค่ามาต้องเป็น int ยังเดียว และก็ ต้องมี ขนาด 8 ถ้ามากกว่า หรือ เท่ากับ 14 ให้เอาตำแหน่งที่ 5 กับ 8
 function extractDesiredValue($scannedValue, $valueLength) {

@@ -1,18 +1,27 @@
 <?php
-   session_start();
+session_start();
 
-   // ตรวจสอบว่ามีการล็อกอินหรือไม่
-   if (!isset($_SESSION['username'])) {
-       header("Location: login.php");
-       exit();
-   }
+// ตรวจสอบว่ามีการล็อกอินหรือไม่
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+
+// Include ไฟล์อื่น ๆ 
+include 'funtion.php';
+include 'db_connection.php';
+
+
 ?>
+
+
 <!DOCTYPE html>
 <html>
+  
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title> Thesis  </title>
+        <title> NCS  </title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
         
         
@@ -68,3 +77,6 @@
     </form>
     </body>
 </html>
+
+
+?>
