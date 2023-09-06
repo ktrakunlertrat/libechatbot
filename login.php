@@ -16,7 +16,9 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
                 <img src="ass/NULOGO-Download-297x300.png" alt="logo" width="50" height="50">
+
                 <h1>Name Check System</h1>
+
               </div>
             </div>
           </nav>
@@ -32,12 +34,19 @@
           </style>
 
     </head>
+
+
     <body background="ass/Backbround.png">
+
       <H3>Login</H3>
-      <form method="post" action="sever.php">
+
+      <form method="post" action="loginsystem.php">
         <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="password" placeholder="Password" required>
         <button type="submit">Login</button>
+
     </form>
+
     </body>
+
 </html>

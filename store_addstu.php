@@ -1,6 +1,7 @@
 <?php
 include 'db_connection.php';
 include 'funtion.php';
+include 'scanner.js';
 
 // รับข้อมูลจากฟอร์ม
 $firstName = $_POST['firstName'];

@@ -1,13 +1,10 @@
 <?php
+include 'db_connection.php';
+
 session_start();
 
-// เชื่อมต่อกับฐานข้อมูล (คุณจะต้องเปลี่ยนข้อมูลให้ตรงกับฐานข้อมูลของคุณ)
-$severname = "localhost";
-$username = "root";
-$password = "";
-$dbname = "login_db";
-
-$conn = mysqli_connect($severname, $username, $password, $dbname);
+// เชื่อมต่อฐานข้อมูล
+$conn = createDBConnection();
 
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
@@ -24,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (mysqli_num_rows($result) == 1) {
         // ล็อกอินสำเร็จ
         $_SESSION['username'] = $username;
-        header("Location: Homepage.php"); // ส่งไปหน้า dashboard หรือหน้าที่คุณต้องการ
+        header("Location: index.php"); // ส่งไปหน้า dashboard หรือหน้าที่คุณต้องการ
     } else {
         // ล็อกอินไม่สำเร็จ
         echo "Invalid username or password";

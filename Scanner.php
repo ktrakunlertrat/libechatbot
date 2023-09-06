@@ -24,11 +24,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
+                 
                 <img src="ass/NULOGO-Download-297x300.png" alt="logo" width="50" height="50">
-                <a class="nav-item nav-link active" href="Homepage.php">Home</a>
-                <a class="nav-item nav-link" href="Scanner.php">เช็คชื่อ</a>
-                <a class="nav-item nav-link" href="Addstu.php">เพิ่มนักเรียนลงระบบ</a>
-                <a class="nav-item nav-link" href="Updatestu.php">แก้ไขนักเรียนในระบบ</a>
+
+                <a class="nav-item nav-link active" href="index.php">Home</a>
+                <a class="nav-item nav-link" href="scanner.php">เช็คชื่อ (current) </a>
+                <a class="nav-item nav-link" href="addstu.php">เพิ่มนักเรียนลงระบบ</a>
+                <a class="nav-item nav-link" href="updatestu.php">แก้ไขนักเรียนในระบบ</a>
                 <a class="nav-item nav-link" href="logout.php">Logout</a>
 
               </div>
@@ -53,6 +55,6 @@
             <button type="submit">Submit</button>
           </form>
           <br>
-          <a href="Homepage.php">Back to Main Page</a>
+          <a href="index.php">Back to Main Page</a>
     </body>
 </html>
