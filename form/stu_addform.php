@@ -1,5 +1,5 @@
 <?php
-include '../conn.php';
+include '../db_connection.php';
 
 ?>
 
@@ -16,9 +16,10 @@ include '../conn.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
+        <img src="ass/NULOGO-Download-297x300.png" alt="logo" width="50" height="50">
 </head>
 
-<body>
+<body background="ass/Backbround.png">
     <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #fe965a;">
         <div class="container">
             <a class="navbar-brand text-light" href="../index.php">ระบบลงทะเบียนเรียน</a>
