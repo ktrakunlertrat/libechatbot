@@ -1,15 +1,14 @@
 <?php
 session_start();
+include 'funtion.php';
+include 'db_connection.php';
+$conn = createDBConnection();
 
 // ตรวจสอบว่ามีการล็อกอินหรือไม่
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
-
-// Include ไฟล์อื่น ๆ 
-include 'funtion.php';
-include 'db_connection.php';
 
 
 ?>
@@ -57,26 +56,66 @@ include 'db_connection.php';
 
     </head>
     <body background="ass/Backbround.png">
-        <h3>แก้ไขนักเรียนในระบบ</h3>
-        <form action="store_updatestu.php" method="post">
+    <div class="row justify-content-md-center">
 
-    <label for="studentID">รหัสนักเรียน:</label>
-    <input type="text" id="studentID" name="studentID" required><br><br>
+         
 
-    <label for="firstName">ชื่อ:</label>
-    <input type="text" id="firstName" name="firstName" required><br><br>
 
-    <label for="lastName">นามสกุล:</label>
-    <input type="text" id="lastName" name="lastName" required><br><br>
 
-    <input type="submit" value="แก้ไขข้อมูล">
-    <br></br>
-    
-    <a href="index.php">Back to Main Page</a>
-    
-    </form>
+            ทดสอบ v2
+           <div class="container py-5">
+        <br>
+        <div class="col-md-auto">
+            <h1 class="text-center" style="color: #fe965a;">ข้อมูลนิสิต</h1><br>
+        </div>
+
+        <?
+
+        ?>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="col-1">รหัสนิสิต</th>
+                    <th class="col-1">ชื่อจริง</th>
+                    <th class="col-1">นามสกุล</th>
+              
+                </tr>
+            </thead>
+            <tbody>
+                <?php $sql = "SELECT * FROM students";
+                $result = mysqli_query($conn,$sql);
+                while ($row = mysqli_fetch_assoc($result)): 
+
+               
+                ?>
+                <tr>
+                    <td>
+                        <?php echo $row['studentID']; ?>
+                    </td>
+                    <td>
+                        <?php echo $row['firstName']; ?>
+                    </td>
+                    <td>
+                        <?php echo $row['lastName']; ?>
+                    </td>
+                    
+                    <td><a href="JavaScript:if(confirm('Confirm Edit?')==true){window.location='stu_edit.php?userID=<?php echo $row['studentID'];?>';}" class="btn btn-warning">แก้ไข</a></td>
+                    <td><a href="JavaScript:if(confirm('Confirm Delete?')==true){window.location='funtion/stu_del.php?userID=<?php echo $row['studentID'];?>';}" class="btn btn-danger">Delete</a></td>
+                
+                </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+        <a href="form/stu_addform.php" class="btn btn-success">เพิ่มข้อมูลนิสิต</a>
+
+
+    </div>
+
+
+
+
+
     </body>
 </html>
 
 
-?>
