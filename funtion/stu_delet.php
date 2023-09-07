@@ -1,8 +1,9 @@
 <?php
 include 'db_connection.php';
+
 header("Location: ../stu_show.php");
 //header =  กลับไปหน้าเดิม
-$id = $_GET['userID'];
+$id = $_GET['studentID'];
 
 
 $sql = "DELETE FROM students WHERE studentID='$id' ";
