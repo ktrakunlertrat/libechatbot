@@ -8,9 +8,9 @@ header("Location: ../show_stu.php");
 ?>
 <?php
     // Get the form data
-    $user_id = $_POST['studentID'];
-    $fname = $_POST['firstName'];
-    $lname = $_POST['lastName'];
+    $studentID = $_POST['studentID'];
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
    
 
   

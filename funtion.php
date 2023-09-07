@@ -144,6 +144,32 @@ function sendLineMessage($message, $user_id) {
 }
 
 
+function getStudentsData($conn) {
+    // SQL สำหรับดึงข้อมูลนักเรียน
+    $sql = "SELECT * FROM students";
+    
+    // ทำการ query ข้อมูล
+    $result = $conn->query($sql);
+
+    // เช็คว่า query สำเร็จหรือไม่
+    if (!$result) {
+        die("เกิดข้อผิดพลาดในการ query: " . $conn->error);
+    }
+
+    // สร้างอาร์เรย์เพื่อเก็บข้อมูลนักเรียน
+    $studentsData = array();
+
+    // วนลูปเพื่อดึงข้อมูลแต่ละแถว
+    while ($row = $result->fetch_assoc()) {
+        $studentsData[] = $row;
+    }
+
+    // ปิดการเชื่อมต่อกับฐานข้อมูล
+    $conn->close();
+
+    // ส่งค่าอาร์เรย์ข้อมูลนักเรียนกลับ
+    return $studentsData;
+}
 
 
 

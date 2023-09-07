@@ -30,6 +30,7 @@ if (!isset($_SESSION['username'])) {
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
                 <img src="ass/NULOGO-Download-297x300.png" alt="logo" width="50" height="50">
@@ -81,6 +82,7 @@ if (!isset($_SESSION['username'])) {
               
                 </tr>
             </thead>
+            
             <tbody>
                 <?php $sql = "SELECT * FROM students";
                 $result = mysqli_query($conn,$sql);
@@ -100,7 +102,7 @@ if (!isset($_SESSION['username'])) {
                     </td>
                     
                     <td><a href="JavaScript:if(confirm('Confirm Edit?')==true){window.location='form/stu_editform.php?userID=<?php echo $row['studentID'];?>';}" class="btn btn-warning">แก้ไข</a></td>
-                    <td><a href="JavaScript:if(confirm('Confirm Delete?')==true){window.location='funtion/stu_del.php?userID=<?php echo $row['studentID'];?>';}" class="btn btn-danger">Delete</a></td>
+                    <td><a href="JavaScript:if(confirm('Confirm Delete?')==true){window.location='funtion/stu_delet.php?userID=<?php echo $row['studentID'];?>';}" class="btn btn-danger">Delete</a></td>
                 
                 </tr>
                 <?php endwhile; ?>

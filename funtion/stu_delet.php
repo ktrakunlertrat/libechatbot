@@ -1,6 +1,7 @@
 <?php
 include '../db_connection.php';
 $conn = createDBConnection();
+
 header("Location: ../show_stu.php");
 //header =  กลับไปหน้าเดิม
 $id = $_GET['studentID'];

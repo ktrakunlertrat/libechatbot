@@ -13,7 +13,7 @@ $lname = $_POST['lastName'];
 
 $sql = "UPDATE students SET 
 firstName = '$fname',
-lastName = '$lname',
+lastName = '$lname'
 
 WHERE studentID='$studentID' ";
 
