@@ -1,6 +1,6 @@
 <?php
-include '../conn.php';
-
+include '../db_connection.php';
+$conn = createDBConnection();
 ?>
 
 <!DOCTYPE html>
