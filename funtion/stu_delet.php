@@ -1,7 +1,7 @@
 <?php
-include 'db_connection.php';
-
-header("Location: ../stu_show.php");
+include '../db_connection.php';
+$conn = createDBConnection();
+header("Location: ../show_stu.php");
 //header =  กลับไปหน้าเดิม
 $id = $_GET['studentID'];
 
@@ -14,7 +14,7 @@ $result = mysqli_query($conn,$sql);
 
 if($result){
     echo "<script>alert('ลบข้อมูลเรียบร้อย');</script>";
-    echo "<script>window.location='stu_show.php';</script>";
+    echo "<script>window.location='show_stu.php';</script>";
 }else{
     echo "<script>alert('ไม่สามารถลบข้อมูลได้');</script>";
 }

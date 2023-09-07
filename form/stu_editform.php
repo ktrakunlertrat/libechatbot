@@ -7,39 +7,51 @@ $conn = createDBConnection();
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แก้ไขข้อมูลนิสิต</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-        crossorigin="anonymous"></script>
-</head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title> NCS  </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        
+        
+        
+        <nav class= " navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <img src="../ass/NULOGO-Download-297x300.png" alt="logo" width="50" height="50">
+                
+                <a class="nav-item nav-link active" href="index.php">Home</a>
+                <a class="nav-item nav-link" href="scanner.php">เช็คชื่อ</a>
+                
+                <a class="nav-item nav-link" href="show_stu.php">ข้อมูลนักเรียนในระบบ (current) </a>
+                <a class="nav-item nav-link" href="logout.php">Logout</a>
+
+              </div>
+            </div>
+          </nav>
+
+          <style>
+            body.logo{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              opacity: 50%;
+            }
+          </style>
+
+    </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #fe965a;">
-        <div class="container">
-            <a class="navbar-brand text-light" href="../index.php">ระบบลงทะเบียนเรียน</a>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item <?=$active_admin?>">
-                        <a class="nav-link text-light" href="login-page.php"></a>
-                    </li>
-                    <li class="nav-item <?=$active_admin?>">
-                        <a class="nav-link text-light" href="login-page.php">กำหนดตารางสอนอาจารย์</a>
-                    </li>
-                    <li class="nav-item <?=$active_admin?>">
-                        <a class="nav-link text-light" href="login-page.php">กำหนดตารางสอนนิสิต</a>
-                    </li>
-                    <li class="nav-item <?=$active_admin?>">
-                        <a class="nav-link text-light" href="login-page.php"></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+
+
+
+
+
     <div class="container py-5">
         <br>
         <div class="col-md-auto">
@@ -50,77 +62,32 @@ $conn = createDBConnection();
             <div class="col-md-auto">
 
             <?php
-            $id = $_GET['userID'];
-            $sql = "SELECT * FROM student 
-            INNER JOIN faculty ON 
-            student.fac_id = faculty.fac_id
-            INNER JOIN branch ON 
-            student.branch_id = branch.branch_id
-            WHERE user_id = $id";
+            // $id = $_GET['studentID'];
+            $sql = "SELECT * FROM students";
             
             $query = mysqli_query($conn,$sql);
             $result = mysqli_fetch_array($query,MYSQLI_ASSOC);
             ?>
-        <form action="../funtion/stu_editSave.php" method="post">
+
+        <form action="../funtion/stu_edit.php" method="post">
             
             <label style="color: #fe965a;">รหัสนิสิต</label>
-            <input type="hidden" name="user_id" value="<?php echo $result["user_id"];?>">​
-            <?php echo $result["user_id"];?><br>
+            <input type="hidden" name="studentID" value="<?php echo $result["studentID"];?>">​
+            <?php echo $result["studentID"];?><br>
             <br>
 
             <label style="color: #fe965a;">ชื่อ</label>
-            <input type="text" name="fname" value="<?php echo $result["stu_fname"];?>" required>
+            <input type="text" name="firstName" value="<?php echo $result["firstName"];?>" required>
 
             <label style="color: #fe965a;">นามสกุล</label>
-            <input type="text" name="lname" value="<?php echo $result["stu_lname"];?>" required>
+            <input type="text" name="lastName" value="<?php echo $result["lastName"];?>" required>
 
-            <label style="color: #fe965a;">เพศ</label>
-            <select name="gender" id="gender" value="<?php echo $result["stu_gender"];?>" required>
-                <option value="ชาย">ชาย</option>
-                <option value="หญิง">หญิง</option>
-            </select>
+        
 
-            <label style="color: #fe965a;">วัน/เดือน/ปีเกิด</label>
-            <input type="date" name="birth" value="<?php echo $result["stu_birth"];?>" required><br>
-            <br>
-
-            <label style="color: #fe965a;">คณะ</label>
-            <select name="faculty" require>
-                <option value="<?php echo $result["fac_id"];?>"><?php echo $result["fac_name"];?></option>
-                <?php $sqlFac = "SELECT * FROM faculty ";
-                    $resultFac = mysqli_query($conn, $sqlFac);
-                    while ($rowFac = mysqli_fetch_assoc($resultFac)): ?>
-                    <option value="<?php echo $rowFac['fac_id']; ?>">
-                    <?php echo $rowFac['fac_name']; ?></option>
-                <?php endwhile; ?>
-            </select>
-
-            <label style="color: #fe965a;">สาขา</label>
-            <select name="branch" value=""required>
-                <option value="<?php echo $result["branch_id"];?>"><?php echo $result["branch_name"];?></option>
-
-                <?php $sqlBranch = "SELECT * FROM branch ";
-                $resultBranch = mysqli_query($conn, $sqlBranch);
-                while ($rowBranch = mysqli_fetch_assoc($resultBranch)): ?>
-                <option value="<?php echo $rowBranch['branch_id']; ?>">
-                <?php echo $rowBranch['branch_name']; ?></option>
-                <?php endwhile; ?>                
-            </select>
-            
-            
-            <label style="color: #fe965a;">โทรศัพท์</label>
-            <input type="text" name="phone" value="<?php echo $result["stu_phone"];?>" required><br><br>
-
-            <label style="color: #fe965a;">email</label>
-            <input type="email" name="email" value="<?php echo $result["stu_email"];?>" required>
-
-            <label style="color: #fe965a;">ที่อยู่</label>
-            <input type="text" name="address" value="<?php echo $result["stu_address"];?>" required>
-            <br>
-            <br>
 
             <button style="color: white;" class="btn btn-success" type="submit" name="submit" value="submit">บันทึกข้อมูล</button>
-            <a href="../form/stu_addForm.php" class="btn btn-danger">Cancel</a>
+            <a href="../form/stu_addform.php" class="btn btn-danger">Cancel</a>
+
             </form>
             
 </div>

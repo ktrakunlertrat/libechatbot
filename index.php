@@ -25,10 +25,13 @@
 
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
+            <img src="ass/NULOGO-Download-297x300.png" alt="logo" width="50" height="50">
+            
             <a class="nav-item nav-link active" href="index.php">Home <span class="sr-only">(current)</span></a>
+
             <a class="nav-item nav-link" href="scanner.php">เช็คชื่อ</a>
-            <a class="nav-item nav-link" href="addstu.php">เพิ่มนักเรียนลงระบบ</a>
-            <a class="nav-item nav-link" href="showstu.php">แก้ไขนักเรียนในระบบ</a>
+            
+            <a class="nav-item nav-link" href="show_stu.php">ข้อมูลนักเรียนในระบบ</a>
 
             
             <a class="nav-item nav-link" href="logout.php">Logout</a>

@@ -31,8 +31,8 @@
 
                 <a class="nav-item nav-link active" href="index.php">Home</a>
                 <a class="nav-item nav-link" href="scanner.php">เช็คชื่อ (current) </a>
-                <a class="nav-item nav-link" href="addstu.php">เพิ่มนักเรียนลงระบบ</a>
-                <a class="nav-item nav-link" href="updatestu.php">แก้ไขนักเรียนในระบบ</a>
+               
+                <a class="nav-item nav-link" href="show_stu.php">ข้อมูลนักเรียนในระบบ</a>
                 <a class="nav-item nav-link" href="logout.php">Logout</a>
 
               </div>

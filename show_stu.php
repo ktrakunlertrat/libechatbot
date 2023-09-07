@@ -36,8 +36,8 @@ if (!isset($_SESSION['username'])) {
                 
                 <a class="nav-item nav-link active" href="index.php">Home</a>
                 <a class="nav-item nav-link" href="scanner.php">เช็คชื่อ</a>
-                <a class="nav-item nav-link" href="addstu.php">เพิ่มนักเรียนลงระบบ  </a>
-                <a class="nav-item nav-link" href="showstu.php">แก้ไขนักเรียนในระบบ (current) </a>
+                
+                <a class="nav-item nav-link" href="show_stu.php">ข้อมูลนักเรียนในระบบ (current) </a>
                 <a class="nav-item nav-link" href="logout.php">Logout</a>
 
               </div>
@@ -99,7 +99,7 @@ if (!isset($_SESSION['username'])) {
                         <?php echo $row['lastName']; ?>
                     </td>
                     
-                    <td><a href="JavaScript:if(confirm('Confirm Edit?')==true){window.location='stu_edit.php?userID=<?php echo $row['studentID'];?>';}" class="btn btn-warning">แก้ไข</a></td>
+                    <td><a href="JavaScript:if(confirm('Confirm Edit?')==true){window.location='form/stu_editform.php?userID=<?php echo $row['studentID'];?>';}" class="btn btn-warning">แก้ไข</a></td>
                     <td><a href="JavaScript:if(confirm('Confirm Delete?')==true){window.location='funtion/stu_del.php?userID=<?php echo $row['studentID'];?>';}" class="btn btn-danger">Delete</a></td>
                 
                 </tr>

@@ -2,7 +2,7 @@
 
 include '../db_connection.php';
 $conn = createDBConnection();
-header("Location: ../stushow.php");
+header("Location: ../show_stu.php");
 //header =  กลับไปหน้าเดิม
 
 ?>
@@ -21,11 +21,11 @@ header("Location: ../stushow.php");
     $result = mysqli_query($conn, $sql);
     if($result){
         echo "<script>alert('บันทึกข้อมูลสำเร็จ');</script>";
-        echo "<script>window.location='../stushow.php';</script>";
+        echo "<script>window.location='../show_stu.php';</script>";
     } else{
         echo "Error updating data: " . mysqli_error($result);
         echo "<script>alert('ไม่สามารถบันทึกข้อมูล!');</script>";
-        echo "<script>window.location='../stushow.php';</script>";
+        echo "<script>window.location='../show_stu.php';</script>";
     }
 
 // Close the database connection

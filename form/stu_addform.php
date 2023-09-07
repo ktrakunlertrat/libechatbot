@@ -7,40 +7,47 @@ $conn = createDBConnection();
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เพิ่มข้อมูลนิสิต</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-        crossorigin="anonymous"></script>
-        <img src="ass/NULOGO-Download-297x300.png" alt="logo" width="50" height="50">
-</head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title> NCS  </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        
+        
+        
+        <nav class= " navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <img src="../ass/NULOGO-Download-297x300.png" alt="logo" width="50" height="50">
+                
+                <a class="nav-item nav-link active" href="index.php">Home</a>
+                <a class="nav-item nav-link" href="scanner.php">เช็คชื่อ</a>
+                
+                <a class="nav-item nav-link" href="show_stu.php">ข้อมูลนักเรียนในระบบ (current) </a>
+                <a class="nav-item nav-link" href="logout.php">Logout</a>
+
+              </div>
+            </div>
+          </nav>
+
+          <style>
+            body.logo{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              opacity: 50%;
+            }
+          </style>
+
+    </head>
 
 <body background="ass/Backbround.png">
-    <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #fe965a;">
-        <div class="container">
-            <a class="navbar-brand text-light" href="../index.php">ระบบลงทะเบียนเรียน</a>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item <?=$active_admin?>">
-                        <a class="nav-link text-light" href="login-page.php"></a>
-                    </li>
-                    <li class="nav-item <?=$active_admin?>">
-                        <a class="nav-link text-light" href="login-page.php">กำหนดตารางสอนอาจารย์</a>
-                    </li>
-                    <li class="nav-item <?=$active_admin?>">
-                        <a class="nav-link text-light" href="login-page.php">กำหนดตารางสอนนิสิต</a>
-                    </li>
-                    <li class="nav-item <?=$active_admin?>">
-                        <a class="nav-link text-light" href="login-page.php"></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+
     <div class="container py-5">
         <br>
         <div class="col-md-auto">
