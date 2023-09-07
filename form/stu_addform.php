@@ -53,53 +53,18 @@ $conn = createDBConnection();
             <form action="../funtion/stu_add.php" method="post">
 
                 <label style="color: #fe965a;">รหัสนิสิต</label>
-                <input type="text" name="user_id" required><br>
+                <input type="text" name="studentID" required><br>
                 <br>
                 <label style="color: #fe965a;">ชื่อ</label>
-                <input type="text" name="fname" required>
+                <input type="text" name="firstName" required>
 
                 <label style="color: #fe965a;">นามสกุล</label>
-                <input type="text" name="lname" required>
+                <input type="text" name="lastName" required>
 
-                <label style="color: #fe965a;">เพศ</label>
-                <select name="gender" id="gender" required>
-                    <option value="ชาย">ชาย</option>
-                    <option value="หญิง">หญิง</option>
-                </select>
-
-                <label style="color: #fe965a;">วัน/เดือน/ปีเกิด</label>
-                <input type="date" name="birth" required><br>
+              
                 <br>
 
-                <label style="color: #fe965a;">คณะ</label>
-                <select name="faculty" require>
-                    <?php $sql = "SELECT * FROM faculty ";
-                    $result = mysqli_query($conn, $sql);
-                    while ($row = mysqli_fetch_assoc($result)): ?>
-                    <option value="<?php echo $row['fac_id']; ?>">
-                    <?php echo $row['fac_name']; ?></option>
-                    <?php endwhile; ?>
-                </select>
-
-                <label style="color: #fe965a;">สาขา</label>
-                <select name="branch" required>        
-                    <?php  $sql = "SELECT * FROM branch ";
-                    $result = mysqli_query($conn, $sql);
-                    while ($row = mysqli_fetch_assoc($result)): ?>
-                    <option value="<?php echo $row['branch_id']; ?>">
-                    <?php echo $row['branch_name']; ?></option>
-                    <?php endwhile; ?>
-                </select>
-
-                <label style="color: #fe965a;">โทรศัพท์</label>
-                <input type="text" name="phone" required><br><br>
-
-                <label style="color: #fe965a;">email</label>
-                <input type="email" name="email" required>
-
-                <label style="color: #fe965a;">ที่อยู่</label>
-                <input type="text" name="address" required>
-                <br>
+               
                 <br>
                 
                 <button style="color: white;" class="btn btn-success" type="submit" name="submit" value="submit">บันทึกข้อมูล</button>
