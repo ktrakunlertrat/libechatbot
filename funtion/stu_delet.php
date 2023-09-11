@@ -10,8 +10,7 @@ $id = $_GET['studentID'];
 $sql = "DELETE FROM students WHERE studentID='$id' ";
 $result = mysqli_query($conn,$sql);
 
-// $sql_user = "DELETE FROM user WHERE studentID='$id' ";
-// $result_user = mysqli_query($conn,$sql_user);
+
 
 if($result){
     echo "<script>alert('ลบข้อมูลเรียบร้อย');</script>";
