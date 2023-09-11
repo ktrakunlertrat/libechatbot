@@ -95,14 +95,11 @@ if (!isset($_SESSION['username'])) {
                     </td>
                     <td>
                         <?php echo $row['lastName']; ?>
-                    </td>
-                    
-                    
+                    </td>  
 
                     <td><a href="stu_editform.php?studentID=<?php echo $row['studentID'];?>" class="btn btn-warning">แก้ไข</a></td>
-                    <td><a href="JavaScript:if(confirm('Confirm Delete?')==true){window.location='stu_delet.php?userID=<?php echo $row['studentID'];?>';}" class="btn btn-danger">Delete</a></td>
+                    <td> <a href="javascript:void(0);" onclick="deleteStudent(<?php echo $row['studentID']; ?>)" class="btn btn-danger">Delete</a> </td>
 
-                
                 </tr>
                 <?php endwhile; ?>
             </tbody>
@@ -114,9 +111,25 @@ if (!isset($_SESSION['username'])) {
 
 
 
-
-
     </body>
+
+        <script>
+        function deleteStudent(studentID) {
+            if (confirm('ยืนยันการลบ?')) {
+                window.location.href = 'stu_delet.php?studentID=' + studentID;
+            }
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
 </html>
 
 
