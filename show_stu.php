@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'funtion.php';
+include 'function.php';
 include 'db_connection.php';
 $conn = createDBConnection();
 
@@ -59,11 +59,7 @@ if (!isset($_SESSION['username'])) {
     <body background="ass/Background.png">
     <div class="row justify-content-md-center">
 
-         
 
-
-
-            ทดสอบ v2
            <div class="container py-5">
         <br>
         <div class="col-md-auto">
@@ -101,14 +97,17 @@ if (!isset($_SESSION['username'])) {
                         <?php echo $row['lastName']; ?>
                     </td>
                     
-                    <td><a href="JavaScript:if(confirm('Confirm Edit?')==true){window.location='form/stu_editform.php?userID=<?php echo $row['studentID'];?>';}" class="btn btn-warning">แก้ไข</a></td>
-                    <td><a href="JavaScript:if(confirm('Confirm Delete?')==true){window.location='funtion/stu_delet.php?userID=<?php echo $row['studentID'];?>';}" class="btn btn-danger">Delete</a></td>
+                    
+
+                    <td><a href="stu_editform.php?studentID=<?php echo $row['studentID'];?>" class="btn btn-warning">แก้ไข</a></td>
+                    <td><a href="JavaScript:if(confirm('Confirm Delete?')==true){window.location='stu_delet.php?userID=<?php echo $row['studentID'];?>';}" class="btn btn-danger">Delete</a></td>
+
                 
                 </tr>
                 <?php endwhile; ?>
             </tbody>
         </table>
-        <a href="form/stu_addform.php" class="btn btn-success">เพิ่มข้อมูลนิสิต</a>
+        <a href="stu_addform.php" class="btn btn-success">เพิ่มข้อมูลนิสิต</a>
 
 
     </div>

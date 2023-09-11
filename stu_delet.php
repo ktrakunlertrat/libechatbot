@@ -1,16 +1,13 @@
 <?php
-include '../db_connection.php';
+include 'db_connection.php';
 $conn = createDBConnection();
 
-header("Location: ../show_stu.php");
+header("Location: show_stu.php");
 //header =  กลับไปหน้าเดิม
 $id = $_GET['studentID'];
 
-
 $sql = "DELETE FROM students WHERE studentID='$id' ";
 $result = mysqli_query($conn,$sql);
-
-
 
 if($result){
     echo "<script>alert('ลบข้อมูลเรียบร้อย');</script>";
@@ -20,5 +17,6 @@ if($result){
 }
 
 mysqli_close($conn);
+
 
 ?>

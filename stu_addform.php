@@ -48,48 +48,35 @@ $conn = createDBConnection();
 
 <body background="ass/Background.png">
 
-
-
-
-
     <div class="container py-5">
         <br>
         <div class="col-md-auto">
-            <h1 class="text-center" style="color: #fe965a;">แก้ไขข้อมูลนิสิต</h1><br>
+            <h1 class="text-center" style="color: #fe965a;">เพิ่มข้อมูลนิสิต</h1><br>
         </div>
         <div class="row justify-content-md-center">
             <div class="col col-lg-2"></div>
             <div class="col-md-auto">
 
-            <?php
-            // $id = $_GET['studentID'];
-            $sql = "SELECT * FROM students";
-            
-            $query = mysqli_query($conn,$sql);
-            $result = mysqli_fetch_array($query,MYSQLI_ASSOC);
-            ?>
+            <form action="stu_add.php" method="post">
 
-        <form action="../funtion/stu_edit.php" method="post">
-            
-            <label style="color: #fe965a;">รหัสนิสิต</label>
-            <input type="hidden" name="studentID" value="<?php echo $result["studentID"];?>">​
-            <?php echo $result["studentID"];?><br>
-            <br>
+                <label style="color: #fe965a;">รหัสนิสิต</label>
+                <input type="text" name="studentID" required><br>
+                <br>
+                <label style="color: #fe965a;">ชื่อ</label>
+                <input type="text" name="firstName" required>
 
-            <label style="color: #fe965a;">ชื่อ</label>
-            <input type="text" name="firstName" value="<?php echo $result["firstName"];?>" required>
+                <label style="color: #fe965a;">นามสกุล</label>
+                <input type="text" name="lastName" required>
 
-            <label style="color: #fe965a;">นามสกุล</label>
-            <input type="text" name="lastName" value="<?php echo $result["lastName"];?>" required>
+              
+                <br>
 
-        
-
-
-            <button style="color: white;" class="btn btn-success" type="submit" name="submit" value="submit">บันทึกข้อมูล</button>
-            <a href="../show_stu.php" class="btn btn-danger">Cancel</a>
-
+               
+                <br>
+                
+                <button style="color: white;" class="btn btn-success" type="submit" name="submit" value="submit">บันทึกข้อมูล</button>
+                <a href="show_stu.php" class="btn btn-danger">Cancel</a>
             </form>
-            
 </div>
 
 <?php mysqli_close($conn); ?>
