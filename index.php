@@ -51,7 +51,7 @@
           </style>
 
     </head>
-    <body background="ass/Backbround.png">
+    <body background="ass/Background.png">
       <h3>เช็คชื่อ</h3>
       -ใช้สำหรับเช็คชื่อด้วย Barcode Scanner
       <br></br>

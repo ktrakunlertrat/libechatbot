@@ -46,7 +46,7 @@
           </style>
 
     </head>
-    <body background="ass/Backbround.png">
+    <body background="ass/Background.png">
         <h3>เพิ่มข้อมูลนักเรียน</h3>
         <form action="store_addstu.php" method="post">
             <label for="firstName">ชื่อ:</label>

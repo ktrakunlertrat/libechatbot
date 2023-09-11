@@ -36,7 +36,7 @@
     </head>
 
 
-    <body background="ass/Backbround.png">
+    <body background="ass/Background.png">
 
       <H3>Login</H3>
 

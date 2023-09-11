@@ -56,7 +56,7 @@ if (!isset($_SESSION['username'])) {
           </style>
 
     </head>
-    <body background="ass/Backbround.png">
+    <body background="ass/Background.png">
     <div class="row justify-content-md-center">
 
          

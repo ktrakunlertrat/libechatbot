@@ -46,7 +46,7 @@ $conn = createDBConnection();
 
     </head>
 
-<body background="ass/Backbround.png">
+<body background="ass/Background.png">
 
     <div class="container py-5">
         <br>

@@ -50,7 +50,7 @@
           </style>
 
     </head>
-    <body background="ass/Backbround.png">
+    <body background="ass/Background.png">
         <form action="store_scanned.php" method="post">
             <label for="scannerInput">Scan Value:</label>
             <input type="text" id="scannerInput" name="scannerInput" autofocus>
