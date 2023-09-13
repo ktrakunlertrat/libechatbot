@@ -1,5 +1,5 @@
 <?php
-include 'funtionforline.php';
+include 'functionforline.php';
 include 'db_connection.php';
 
 // Access Token

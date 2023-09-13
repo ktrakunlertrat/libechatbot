@@ -1,6 +1,6 @@
 <?php
 include 'db_connection.php';
-include 'funtion.php';
+include 'function.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["scannerInput"]) && is_numeric($_POST["scannerInput"])) {
@@ -25,11 +25,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         } else {
             echo "Input must be either 8 or 14 digits long. Please enter a numeric value.";
-            echo "<script>setTimeout(function(){ window.location.href = 'Scanner.php'; }, 1000);</script>";
+            echo "<script>setTimeout(function(){ window.location.href = 'scanner.php'; }, 1000);</script>";
         }
     } else {
         echo "Invalid input. Please enter a numeric value or change lan in keyboard. โปรดใส่เป็นตัวเลข หรือ เปลี่ยนภาษาแป้นพิม";
-        echo "<script>setTimeout(function(){ window.location.href = 'Scanner.php'; }, 1000);</script>";
+        echo "<script>setTimeout(function(){ window.location.href = 'scanner.php'; }, 1000);</script>";
     }
 }
 
