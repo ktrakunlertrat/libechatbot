@@ -38,8 +38,8 @@ if (!isset($_SESSION['username'])) {
                 <a class="nav-item nav-link active" href="index.php">Home</a>
                 <a class="nav-item nav-link" href="scanner.php">เช็คชื่อ</a>
                 
-                <a class="nav-item nav-link" href="show_stu.php">ข้อมูลนักเรียนในระบบ (current) </a>
-                <a class="nav-item nav-link" href="show_history.php">ประวัติการเข้าเรียน</a>
+                <a class="nav-item nav-link" href="show_stu.php">ข้อมูลนักเรียนในระบบ</a>
+                <a class="nav-item nav-link" href="show_history.php">ประวัติการเข้าเรียน (current) </a>
                 <a class="nav-item nav-link" href="logout.php">Logout</a>
 
               </div>
@@ -64,7 +64,7 @@ if (!isset($_SESSION['username'])) {
            <div class="container py-5">
         <br>
         <div class="col-md-auto">
-            <h1 class="text-center" style="color: #fe965a;">ข้อมูลนิสิต</h1><br>
+            <h1 class="text-center" style="color: #fe965a;">ประวัติการเข้าเรียน</h1><br>
         </div>
 
         <?
@@ -74,14 +74,13 @@ if (!isset($_SESSION['username'])) {
             <thead>
                 <tr>
                     <th class="col-1">รหัสนิสิต</th>
-                    <th class="col-1">ชื่อจริง</th>
-                    <th class="col-1">นามสกุล</th>
+                    <th class="col-1">เวลา</th>
               
                 </tr>
             </thead>
             
             <tbody>
-                <?php $sql = "SELECT * FROM students";
+                <?php $sql = "SELECT * FROM checklistdata";
                 $result = mysqli_query($conn,$sql);
                 while ($row = mysqli_fetch_assoc($result)): 
 
@@ -92,45 +91,14 @@ if (!isset($_SESSION['username'])) {
                         <?php echo $row['studentID']; ?>
                     </td>
                     <td>
-                        <?php echo $row['firstName']; ?>
-                    </td>
-                    <td>
-                        <?php echo $row['lastName']; ?>
+                        <?php echo $row['created_at']; ?>
                     </td>  
 
-                    <td><a href="stu_editform.php?studentID=<?php echo $row['studentID'];?>" class="btn btn-warning">แก้ไข</a></td>
-                    <td> <a href="javascript:void(0);" onclick="deleteStudent(<?php echo $row['studentID']; ?>)" class="btn btn-danger">Delete</a> </td>
-
+                    
                 </tr>
                 <?php endwhile; ?>
             </tbody>
         </table>
-        <a href="stu_addform.php" class="btn btn-success">เพิ่มข้อมูลนิสิต</a>
-
-
     </div>
-
-
-
     </body>
-
-        <script>
-        function deleteStudent(studentID) {
-            if (confirm('ยืนยันการลบ?')) {
-                window.location.href = 'stu_delet.php?studentID=' + studentID;
-            }
-        }
-    </script>
-
-
-
-
-
-
-
-
-
-
 </html>
-
-
