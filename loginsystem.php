@@ -24,7 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: index.php"); // ส่งไปหน้า dashboard หรือหน้าที่คุณต้องการ
     } else {
         // ล็อกอินไม่สำเร็จ
-        echo "Invalid username or password";
+        echo "<script>alert('ใส่รหัสผ่านผิด หรือรหัสผ่านไม่มีในระบบ');</script>";
+        echo "<script>window.location.href = 'login.php';</script>";
     }
 }
 
