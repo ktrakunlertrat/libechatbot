@@ -1,4 +1,12 @@
+<?php
+   session_start();
 
+   // ตรวจสอบว่ามีการล็อกอินหรือไม่
+   if (!isset($_SESSION['username'])) {
+       header("Location: login.php");
+       exit();
+   }
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -50,30 +58,30 @@
     <body background="ass/Background.png">
       
       <canvas id="myChart" style="width:100%;max-width:1000px"></canvas>
+      
+        <script>
+        const xValues1 = ["จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์"];
+        const yValues1 = [55, 49, 44, 24, 15];
+        const barColors1 = ["red", "green","blue","orange","brown"];
 
-      <script>
-      const xValues1 = ["จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์"];
-      const yValues1 = [55, 49, 44, 24, 15];
-      const barColors1 = ["red", "green","blue","orange","brown"];
-
-      new Chart("myChart", {
-        type: "bar",
-        data: {
-          labels: xValues1,
-          datasets: [{
-            backgroundColor: barColors1,
-            data: yValues1
-          }]
-        },
-        options: {
-          legend: {display: false},
-          title: {
-            display: true,
-            text: "กราฟการเข้าเรียน"
+        new Chart("myChart", {
+          type: "bar",
+          data: {
+            labels: xValues1,
+            datasets: [{
+              backgroundColor: barColors1,
+              data: yValues1
+            }]
+          },
+          options: {
+            legend: {display: false},
+            title: {
+              display: true,
+              text: "กราฟการเข้าเรียน"
+            }
           }
-        }
-      });
-      </script>
+        });
+        </script>
 
     </body>
 </html>
