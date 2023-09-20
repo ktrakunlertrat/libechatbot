@@ -35,7 +35,7 @@
 
             <a class="nav-item nav-link" href="show_history.php">ประวัติการเข้าเรียน</a>
 
-            <a class="nav-item nav-link" href="show_chart.php">กราฟ</a>
+            <a class="nav-item nav-link" href="show_chart.php">กราฟ (current)</a>
             
             <a class="nav-item nav-link" href="logout.php">Logout</a>
                
@@ -54,14 +54,34 @@
           </style>
 
     </head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <body background="ass/Background.png">
-      <h3>เช็คชื่อ</h3>
-      -ใช้สำหรับเช็คชื่อด้วย Barcode Scanner
-      <br></br>
-      <h3>เพิ่มนักเรียนลงระบบ</h3>
-      -ใช้สำหรับเพิ่มข้อมูลนักเรียนลงไปในระบบฐานข้อมูล
-      <br></br>
-      <h3>แก้ไขนักเรียนในระบบ</h3>
-      -ใช้สำหรับแก้ไขข้อมูลนักเรียนในระบบฐานข้อมูล
+      
+      <canvas id="myChart" style="width:100%;max-width:1000px"></canvas>
+      
+        <script>
+        const xValues1 = ["จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์"];
+        const yValues1 = [55, 49, 44, 24, 15];
+        const barColors1 = ["red", "green","blue","orange","brown"];
+
+        new Chart("myChart", {
+          type: "bar",
+          data: {
+            labels: xValues1,
+            datasets: [{
+              backgroundColor: barColors1,
+              data: yValues1
+            }]
+          },
+          options: {
+            legend: {display: false},
+            title: {
+              display: true,
+              text: "กราฟการเข้าเรียน"
+            }
+          }
+        });
+        </script>
+
     </body>
 </html>

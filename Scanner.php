@@ -34,6 +34,7 @@
                
                 <a class="nav-item nav-link" href="show_stu.php">ข้อมูลนักเรียนในระบบ</a>
                 <a class="nav-item nav-link" href="show_history.php">ประวัติการเข้าเรียน</a>
+                <a class="nav-item nav-link" href="show_chart.php">กราฟ</a>
                 <a class="nav-item nav-link" href="logout.php">Logout</a>
 
               </div>
