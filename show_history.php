@@ -10,10 +10,11 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
+//ไม่แสดงข้อความ warning บนเว็บไซต์
+error_reporting(1);
+
 
 ?>
-
-
 <!DOCTYPE html>
 <html>
   
@@ -21,10 +22,12 @@ if (!isset($_SESSION['username'])) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title> NCS  </title>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+
+       
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-        
-        
-        
+       
         <nav class= " navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,48 +61,160 @@ if (!isset($_SESSION['username'])) {
           </style>
 
     </head>
-    <body background="ass/Background.png">
-    <div class="row justify-content-md-center">
+
+        <body background="ass/Background.png">
+        <div class="row justify-content-md-center">
+            <div class="container py-5">   <br>
+                    <div class="col-md-auto">
+                        <h1 class="text-center" style="color: #fe965a;">ประวัติการเข้าเรียน</h1><br>
+                    </div>
+
+        
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- ส่วนของแนวคอลัมที่ 1 -->
+
+            <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                    <label for="selected_date">กรอกวันที่ (รูปแบบ: YYYY-MM-DD):</label>
+                    <input type="text" id="selected_date" name="selected_date" placeholder="ป้อนวันที่">
+
+                    <button type="submit">ค้นหา</button>
+                </form>
 
 
-           <div class="container py-5">
-        <br>
-        <div class="col-md-auto">
-            <h1 class="text-center" style="color: #fe965a;">ประวัติการเข้าเรียน</h1><br>
-        </div>
 
-        <?
 
-        ?>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th class="col-1">รหัสนิสิต</th>
-                    <th class="col-1">เวลา</th>
-              
-                </tr>
-            </thead>
+                                                            
+            <?php
+               if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                // รับค่าวันที่จากแบบฟอร์ม
+                $selected_date = $_POST["selected_date"];
             
-            <tbody>
-                <?php $sql = "SELECT * FROM checklistdata";
-                $result = mysqli_query($conn,$sql);
-                while ($row = mysqli_fetch_assoc($result)): 
-
-               
+                // แสดงวันที่ที่ผู้ใช้เลือก
+                echo "<p>ข้อมูลสำหรับวันที่: $selected_date</p>";
+            
+                $filteredData = filterDataByDate($selected_date, $conn);
+            
+                // ตรวจสอบว่ามีข้อมูลหรือไม่
+                if (empty($filteredData)) {
+                    // ไม่พบข้อมูลสำหรับวันที่ที่ผู้ใช้เลือก
+                    echo "<p>ไม่พบข้อมูลสำหรับวันที่ $selected_date</p>";
+                } else {
+                    // สร้างตัวแปรเพื่อเก็บรายชื่อของนักเรียนที่เช็คชื่อ
+                    $checkedStudents = array();
+            
+                    // สร้างตัวแปรเพื่อเก็บจำนวนครั้งที่นักเรียนเช็คชื่อใหม่
+                    $newCheckCount = array();
+            
+                    // แสดงข้อมูลที่พบ
+                    foreach ($filteredData as $row) {
+                        $studentID = $row["studentID"];
+                        $checkDateTime = $row["created_at"];
+            
+                        // ตรวจสอบว่านักเรียนนี้เคยเช็คชื่อหรือยัง
+                        if (in_array($studentID, $checkedStudents)) {
+                            // นับครั้งที่นักเรียนเช็คชื่อใหม่
+                            $newCheckCount[$studentID]++;
+            
+                            echo "ชื่อ: $studentID (เช็คชื่อครั้งที่ $newCheckCount[$studentID]) - วันเวลาเช็ค: $checkDateTime<br>";
+                        } else {
+                            echo "ชื่อ: $studentID - วันเวลาเช็ค: $checkDateTime<br>";
+                            // เพิ่มรายชื่อนักเรียนที่เช็คชื่อเข้าในอาร์เรย์
+                            $checkedStudents[] = $studentID;
+                            // กำหนดครั้งเช็คชื่อใหม่เป็น 1
+                            $newCheckCount[$studentID] = 1;
+                        }
+                    }
+                }
+            }
                 ?>
-                <tr>
-                    <td>
-                        <?php echo $row['studentID']; ?>
-                    </td>
-                    <td>
-                        <?php echo $row['created_at']; ?>
-                    </td>  
 
-                    
-                </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
+
+
+
+
+
+
+
+        </div>
+         <div class="col-md-6">
+            <!-- ส่วนของแนวคอลัมที่ 2 -->
+                                <form method="post" action="">
+                            <label for="student_id">ค้นหา Student ID:</label>
+                            <input type="text" name="student_id">
+                            <input type="submit" value="ค้นหา">
+                            </form>
+
+                        <?php
+                        // ตรวจสอบการเรียกใช้งานโดย POST สำหรับช่องคนหา studentID
+                        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                            // รับค่า Student ID จากแบบฟอร์ม
+                            $student_id = $_POST["student_id"];
+
+                            // แสดง Student ID ที่ผู้ใช้ค้นหา
+                            echo "<p>Student ID ที่คุณค้นหา: $student_id</p>";
+
+                            $checkData = getCheckDataByStudentID($student_id, $conn);
+
+                            if (!empty($checkData)) {
+                                // แสดงข้อมูลการเช็คชื่อของ Student ID ที่ค้นหา
+                                echo "<h2>รายการการเช็คชื่อของ Student ID: $student_id</h2>";
+                                echo "<ul>";
+                                foreach ($checkData as $check) {
+                                    $checkDateTime = $check["created_at"];
+                                    echo "<li>วันที่เช็คชื่อ: $checkDateTime</li>";
+                                }
+                                echo "</ul>";
+                            } else {
+                                echo "ไม่พบข้อมูลการเช็คชื่อสำหรับ Student ID: $student_id";
+                            }
+                        }
+                        ?>
+        </div>
+        <div class="col-md-4">
+        <!-- ส่วนของแนวคอลัมที่ 3 -->
+                            <button id="showChecklistButton">รายชื่อเช็คชื่อทั้งหมด</button>
+                        <table class="table" id="checklistTable" style="display: none;">
+                        <thead>
+                                <tr>
+                                    <th class="col-1">รหัสนิสิต</th>
+                                    <th class="col-1">เวลา</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <?php
+                                $sql = "SELECT * FROM checklistdata";
+                                $result = mysqli_query($conn, $sql);
+                                while ($row = mysqli_fetch_assoc($result)):
+                                ?>
+                                <tr>
+                                    <td><?php echo $row['studentID']; ?></td>
+                                    <td><?php echo $row['created_at']; ?></td>
+                                </tr>
+                                <?php endwhile; ?>
+                            </tbody>
+                        </table>
+                        
+                            <script>
+                                document.getElementById('showChecklistButton').addEventListener('click', function () {
+                                    var checklistTable = document.getElementById('checklistTable');
+                                    if (checklistTable.style.display === 'none' || checklistTable.style.display === '') {
+                                        checklistTable.style.display = 'table';
+                                    } else {
+                                        checklistTable.style.display = 'none';
+                                    }
+                                });
+                            </script>
+
+                        
+
+                        
+                            </tbody>
+                        </table>
+        </div>
+                             
+
     </div>
-    </body>
 </html>

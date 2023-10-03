@@ -1,11 +1,18 @@
 <?php
    session_start();
+   include 'function.php';
+   include 'db_connection.php';
+   $conn = createDBConnection();
 
    // ตรวจสอบว่ามีการล็อกอินหรือไม่
    if (!isset($_SESSION['username'])) {
        header("Location: login.php");
        exit();
    }
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -54,6 +61,10 @@
           </style>
 
     </head>
+
+
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <body background="ass/Background.png">
       
@@ -82,6 +93,10 @@
           }
         });
         </script>
+
+
+
+
 
     </body>
 </html>

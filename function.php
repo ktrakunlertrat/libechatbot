@@ -173,7 +173,69 @@ function getStudentsData($conn) {
 
 
 
+// ฟังก์ชันสำหรับดึงข้อมูลการเช็คชื่อโดยใช้ Student ID
+function getCheckDataByStudentID($student_id, $conn) {
+    $sql = "SELECT created_at FROM checklistdata WHERE studentID = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $student_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $checkData = array();
+    while ($row = $result->fetch_assoc()) {
+        $checkData[] = $row;
+    }
+    return $checkData;
+}
 
+function filterDataByMonth($selected_month, $conn) {
+    $sql = "SELECT * FROM checklistdata WHERE DATE_FORMAT(created_at, '%Y-%m') = ?";
+    
+    $stmt = $conn->prepare($sql);
+    
+    if ($stmt) {
+        $stmt->bind_param("s", $selected_month);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $filteredData = array();
+        
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $filteredData[] = $row;
+            }
+        }
+        
+        $stmt->close();
+    } else {
+        // จัดการข้อผิดพลาดตามที่คุณต้องการ
+    }
+    
+    return $filteredData;
+}
+
+
+
+
+
+
+function filterDataByDate($selected_date, $conn) {
+    // สร้าง SQL query เพื่อกรองข้อมูล
+    $sql = "SELECT * FROM checklistdata WHERE DATE(created_at) = '$selected_date'";
+    
+    // ดำเนินการ query
+    $result = $conn->query($sql);
+    
+    $filteredData = array();
+
+   if ($result->num_rows > 0) {
+        // เก็บข้อมูลที่พบลงในอาเรย์
+        while ($row = $result->fetch_assoc()) {
+            $filteredData[] = $row;
+       }
+    }
+
+   return $filteredData;
+ }
 
 
 
