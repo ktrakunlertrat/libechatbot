@@ -147,45 +147,48 @@ error_reporting(1);
                             <input type="submit" value="ค้นหา">
                             </form>
 
-                        <?php
-                        // ตรวจสอบการเรียกใช้งานโดย POST สำหรับช่องคนหา studentID
-                        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                            // รับค่า Student ID จากแบบฟอร์ม
-                            $student_id = $_POST["student_id"];
+                            <?php
+                                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                                    // รับค่า Student ID จากแบบฟอร์ม
+                                    $student_id = $_POST["student_id"];
 
-                            // แสดง Student ID ที่ผู้ใช้ค้นหา
-                            echo "<p>Student ID ที่คุณค้นหา: $student_id</p>";
+                                    // แสดง Student ID ที่ผู้ใช้ค้นหา
+                                    echo "<p>Student ID ที่คุณค้นหา: $student_id</p>";
 
-                            $checkData = getCheckDataByStudentID($student_id, $conn);
+                                    $checkData = getCheckDataByStudentID($student_id, $conn);
 
-                            if (!empty($checkData)) {
-                                // แสดงข้อมูลการเช็คชื่อของ Student ID ที่ค้นหา
-                                echo "<h2>รายการการเช็คชื่อของ Student ID: $student_id</h2>";
-                                echo "<ul>";
-                                foreach ($checkData as $check) {
-                                    $checkDateTime = $check["created_at"];
-                                    echo "<li>วันที่เช็คชื่อ: $checkDateTime</li>";
+                                    if (!empty($checkData)) {
+                                        // แสดงข้อมูลการเช็คชื่อของ Student ID ที่ค้นหา
+                                        echo "<h2>รายการการเช็คชื่อของ Student ID: $student_id</h2>";
+                                        echo "<p>จำนวนยอด: " . count($checkData) . "</p>";
+                                        echo "<ul>";
+                                        foreach ($checkData as $check) {
+                                            $checkDateTime = $check["created_at"];
+                                            echo "<li>วันที่เช็คชื่อ: $checkDateTime</li>";
+                                        }
+                                        echo "</ul>";
+                                    } else {
+                                        echo "ไม่พบข้อมูลการเช็คชื่อสำหรับ Student ID: $student_id";
+                                    }
                                 }
-                                echo "</ul>";
-                            } else {
-                                echo "ไม่พบข้อมูลการเช็คชื่อสำหรับ Student ID: $student_id";
-                            }
-                        }
-                        ?>
+                            ?>
+
+
         </div>
+
         <div class="col-md-4">
         <!-- ส่วนของแนวคอลัมที่ 3 -->
-                            <button id="showChecklistButton">รายชื่อเช็คชื่อทั้งหมด</button>
+                                <button id="showChecklistButton">Show Checklist</button> กดซ้ำเพื่อ ล่าสุด/เก่าสุด
                         <table class="table" id="checklistTable" style="display: none;">
-                        <thead>
+                            <thead>
                                 <tr>
                                     <th class="col-1">รหัสนิสิต</th>
                                     <th class="col-1">เวลา</th>
                                 </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
                                 <?php
-                                $sql = "SELECT * FROM checklistdata";
+                                $sql = "SELECT * FROM checklistdata ORDER BY created_at DESC";
                                 $result = mysqli_query($conn, $sql);
                                 while ($row = mysqli_fetch_assoc($result)):
                                 ?>
@@ -196,23 +199,48 @@ error_reporting(1);
                                 <?php endwhile; ?>
                             </tbody>
                         </table>
-                        
-                            <script>
-                                document.getElementById('showChecklistButton').addEventListener('click', function () {
-                                    var checklistTable = document.getElementById('checklistTable');
-                                    if (checklistTable.style.display === 'none' || checklistTable.style.display === '') {
-                                        checklistTable.style.display = 'table';
-                                    } else {
-                                        checklistTable.style.display = 'none';
-                                    }
-                                });
-                            </script>
 
-                        
+                        <script>
+                            var checklistTable = document.getElementById('checklistTable');
+                            var sortOrder = 'desc';
 
-                        
-                            </tbody>
-                        </table>
+                            document.getElementById('showChecklistButton').addEventListener('click', function () {
+                                if (sortOrder === 'desc') {
+                                    sortOrder = 'asc';
+                                    checklistTable.style.display = 'none';
+                                    // ลดลำดับของข้อมูลแถว
+                                    var rows = Array.from(checklistTable.querySelectorAll('tbody tr'));
+                                    rows.sort(function (a, b) {
+                                        var aDate = new Date(a.cells[1].textContent);
+                                        var bDate = new Date(b.cells[1].textContent);
+                                        return sortOrder === 'asc' ? aDate - bDate : bDate - aDate;
+                                    });
+                                    var tbody = checklistTable.querySelector('tbody');
+                                    tbody.innerHTML = '';
+                                    rows.forEach(function (row) {
+                                        tbody.appendChild(row);
+                                    });
+                                    checklistTable.style.display = 'table';
+                                } else {
+                                    sortOrder = 'desc';
+                                    checklistTable.style.display = 'none';
+                                    // เรียงลำดับของข้อมูลแถว
+                                    var rows = Array.from(checklistTable.querySelectorAll('tbody tr'));
+                                    rows.sort(function (a, b) {
+                                        var aDate = new Date(a.cells[1].textContent);
+                                        var bDate = new Date(b.cells[1].textContent);
+                                        return sortOrder === 'asc' ? aDate - bDate : bDate - aDate;
+                                    });
+                                    var tbody = checklistTable.querySelector('tbody');
+                                    tbody.innerHTML = '';
+                                    rows.forEach(function (row) {
+                                        tbody.appendChild(row);
+                                    });
+                                    checklistTable.style.display = 'table';
+                                }
+                            });
+                        </script>
+
         </div>
                              
 
