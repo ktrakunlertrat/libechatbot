@@ -95,7 +95,7 @@ function insertStudentData($conn, $firstName, $lastName, $studentID) {
 //// เมื่อสแกนเสร็จ ส่งข้อความกลับไปที่ studentID ... user_id ที่เก็บข้อมูล
 function sendLineMessage($message, $user_id) {
     // กำหนด Channel Access Token ที่คุณได้รับจาก Line Developer
-    $channelAccessToken = '+juKyX1yFgY+1TkQaWUUyMwb3cC4sTC6Wk+zDATAyFRocU48+NGh/tZlZUE5F4cYSehA0oer88nexDJuomtLu32VFrh6QXPR1uN8kZbLw88L93rMCw8Dqx9X2sBL0GVb9jcm8e+3tjHCOMaH52/59gdB04t89/1O/w1cDnyilFU=';
+    $channelAccessToken = 'FPOOzuLqvy2eobZXRZY40CxYg2a8iTPrSwA83OqOKfwtvMGyFq7kQgYTw/0XK+XPdPG1tOP3SsBmmjdgiJJaVkp/1NIHRgy/a7gSoWvOZtyJO9dplcMLmrZ3jAdl6UywjL0tPRItFyr+EBJ+rk94gQdB04t89/1O/w1cDnyilFU=';
 
     // ข้อมูลที่ต้องการส่งไปยัง Line Messaging API
     $data = array(
