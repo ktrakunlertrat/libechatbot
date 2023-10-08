@@ -23,7 +23,8 @@ if (!empty($events['events'])) {
 
             $messages = array(
                 'type' => 'text',
-                'text' => 'Reply message : '.$event['message']['text']."\nUser ID : ".$event['source']['userId'],
+                // 'text' => 'Reply message : '.$event['message']['text']."\nUser ID : ".$event['source']['userId'],
+                'text' => 'Reply message:' . "\n" . 'User ID: บันทึกเรียบร้อย ถ้าต้องการแก้ไขให้ติดต่อกับเจ้าหน้าที่',
             );
             $post = json_encode(array(
                 'replyToken' => $event['replyToken'],

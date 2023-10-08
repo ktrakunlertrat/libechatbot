@@ -68,9 +68,8 @@ if (!isset($_SESSION['username'])) {
             <h1 class="text-center" style="color: #fe965a;">ข้อมูลนิสิต</h1><br>
         </div>
 
-        <?
-
-        ?>
+        <a href="stu_addform.php" class="btn btn-success">เพิ่มข้อมูลนิสิต</a>
+        
         <table class="table">
             <thead>
                 <tr>
@@ -81,6 +80,8 @@ if (!isset($_SESSION['username'])) {
                 </tr>
             </thead>
             
+
+
             <tbody>
                 <?php $sql = "SELECT * FROM students";
                 $result = mysqli_query($conn,$sql);
@@ -106,7 +107,10 @@ if (!isset($_SESSION['username'])) {
                 <?php endwhile; ?>
             </tbody>
         </table>
-        <a href="stu_addform.php" class="btn btn-success">เพิ่มข้อมูลนิสิต</a>
+
+
+
+        
 
 
     </div>

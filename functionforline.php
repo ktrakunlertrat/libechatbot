@@ -17,7 +17,7 @@ function queryUserIDsFromUsersLine($conn) {
   }
 
 
-  ////ตารางเก็บข้อมูล linelink ไว้เก็บข้อมูลของ webhook 
+  /* ////ตารางเก็บข้อมูล linelink ไว้เก็บข้อมูลของ webhook  v1
 function checkAndInsertLink($user_id, $message) {
     $conn = createDBConnection();
     
@@ -34,6 +34,29 @@ function checkAndInsertLink($user_id, $message) {
     $conn->close();
 }
 
+   ////ตารางเก็บข้อมูล linelink ไว้เก็บข้อมูลของ webhook  v2
+*/ 
+function checkAndInsertLink($user_id, $message) {
+    $conn = createDBConnection();
+    
+    // ค้นหา studentID ที่ตรงกับข้อความในตาราง students
+    $query = "SELECT studentID FROM students WHERE studentID = '$message'";
+    $result = $conn->query($query);
+    
+    if ($result->num_rows > 0) {
+        // studentID ตรงกัน ตรวจสอบว่า user_id มีอยู่ในตาราง linelink หรือไม่
+        $check_sql = "SELECT user_id FROM linelink WHERE user_id = '$user_id'";
+        $check_result = $conn->query($check_sql);
+        
+        if ($check_result->num_rows == 0) {
+            // user_id ยังไม่มีอยู่ในตาราง linelink ให้เพิ่มข้อมูล
+            $insert_sql = "INSERT INTO linelink (user_id, studentID) VALUES ('$user_id', '$message')";
+            $conn->query($insert_sql);
+        }
+    }
+    
+    $conn->close();
+}
 
 
 
