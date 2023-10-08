@@ -19,7 +19,7 @@
         
         
         
-        <nav class= " navbar navbar-expand-lg navbar-light bg-light">
+        <nav class= " navbar navbar-expand-lg">
             <a class="navbar-brand" href="#"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -53,12 +53,18 @@
 
     </head>
     <body background="ass/Background.png">
-        <form action="store_scanned.php" method="post">
+        <form class="d-flex" action="store_scanned.php" method="post">
             <label for="scannerInput">Scan Value:</label>
-            <input type="text" id="scannerInput" name="scannerInput" autofocus>
+            <input class="form" type="text" id="scannerInput" name="scannerInput" autofocus >
             <button type="submit">Submit</button>
           </form>
+         
+          
+
+
+
+
           <br>
-          <a href="index.php">Back to Main Page</a>
+        
     </body>
 </html>
