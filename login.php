@@ -34,19 +34,24 @@
           </style>
 
     </head>
-
-
+    
     <body background="ass/Background.png">
-
-      <H3>Login</H3>
-
-      <form method="post" action="loginsystem.php">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Login</button>
-
-    </form>
-
+    <div class="mb-3 d-flex align-items-center justify-content-center" style="height: 50vh;">
+    <div class="mb-3">
+       
+        </div>
+        <form method="post" action="loginsystem.php">
+            <div class="mb-3">
+            <H3>Login</H3> 
+                <input type="text" name="username" placeholder="Username" required autofocus>
+            </div>
+            <div class="mb-3">
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            <div id="usernamehelp" class="form-text">We'll never share your username and password with anyone else.</div>
+        </form>
     </body>
-
+</div>
+      
 </html>
