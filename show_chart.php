@@ -5,10 +5,10 @@
    $conn = createDBConnection();
 
    // ตรวจสอบว่ามีการล็อกอินหรือไม่
-   if (!isset($_SESSION['username'])) {
-       header("Location: login.php");
-       exit();
-   }
+   if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
+    header("Location: login.php");
+    exit();
+}
 
 
 
