@@ -14,14 +14,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // ตรวจสอบข้อมูลจากฐานข้อมูล
-    $query = "SELECT * FROM user WHERE username='$username' AND password='$password'";
+    $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
     $result = mysqli_query($conn, $query);
 
     if (mysqli_num_rows($result) == 1) {
-        // ล็อกอินสำเร็จ
-        $_SESSION['username'] = $username;
-        header("Location: index.php"); // ส่งไปหน้า dashboard หรือหน้าที่คุณต้องการ
+        $row = mysqli_fetch_assoc($result);
+        $_SESSION['username'] = $row['username'];
+        $_SESSION['role'] = $row['role'];
+
+        if ($row['role'] == 'admin') {
+            header("Location: index.php");
+        } else {
+            header("Location: user_index.php");
+        }
     } else {
         // ล็อกอินไม่สำเร็จ
         echo "<script>alert('ใส่รหัสผ่านผิด หรือรหัสผ่านไม่มีในระบบ');</script>";
