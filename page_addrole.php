@@ -67,7 +67,8 @@ $conn = createDBConnection();
                 <input type="text" name="username" required>
 
                 <label style="color: #fe965a;">Password</label>
-                <input type="text" name="password" required>
+                <input type="password" name="password" required>
+                
                 <br>
                 <input type="radio" id="user" name="role" value="user">
                 <label for="user">User</label>
@@ -83,6 +84,13 @@ $conn = createDBConnection();
                 <button style="color: white;" class="btn btn-success" type="submit" name="submit" value="submit">บันทึกข้อมูล</button>
                 <a href="show_stu.php" class="btn btn-danger">Cancel</a>
             </form>
+            
+            <script>
+              // ซ่อนฟิลด์ที่มี ID "hiddenField"
+              document.getElementById("password").style.display = "none";
+            </script>
+
+            
 </div>
 
 <?php mysqli_close($conn); ?>
