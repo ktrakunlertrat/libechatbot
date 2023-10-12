@@ -20,7 +20,7 @@ $conn = createDBConnection();
     $result = mysqli_query($conn, $sql);
     if($result){
         echo "<script>alert('บันทึกข้อมูลสำเร็จ');</script>";
-        echo "<script>window.location='show_stu.php';</script>";
+        echo "<script>window.location='page_addrole';</script>";
     } else{
         echo "Error updating data: " . mysqli_error($result);
         echo "<script>alert('ไม่สามารถบันทึกข้อมูล!');</script>";
