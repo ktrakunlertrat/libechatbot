@@ -44,6 +44,8 @@
 
             <a class="nav-item nav-link" href="show_chart.php">กราฟ (current)</a>
             
+            <a class="nav-item nav-link" href="page_addrole.php">เพิ่มบทบาท</a>
+
             <a class="nav-item nav-link" href="logout.php">Logout</a>
                
             </div>

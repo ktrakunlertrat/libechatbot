@@ -39,6 +39,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
                 <a class="nav-item nav-link" href="show_stu.php">ข้อมูลนักเรียนในระบบ (current) </a>
                 <a class="nav-item nav-link" href="show_history.php">ประวัติการเข้าเรียน</a>
                 <a class="nav-item nav-link" href="show_chart.php">กราฟ</a>
+                <a class="nav-item nav-link" href="page_addrole.php">เพิ่มบทบาท</a>
                 <a class="nav-item nav-link" href="logout.php">Logout</a>
 
               </div>

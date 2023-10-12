@@ -3,6 +3,16 @@ include 'db_connection.php';
 $conn = createDBConnection();
 ?>
 
+<?php
+   session_start();
+
+   // ตรวจสอบว่ามีการล็อกอินหรือไม่
+   if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
+    header("Location: login.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
