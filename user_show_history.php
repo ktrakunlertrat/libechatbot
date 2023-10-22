@@ -83,12 +83,12 @@ error_reporting(1);
               if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // รับค่าวันที่จากแบบฟอร์ม
                 $selected_date = $_POST["selected_date"];
-
+            
                 // แสดงวันที่ที่ผู้ใช้เลือก
                 echo "<p>ข้อมูลสำหรับวันที่: $selected_date</p>";
-
+            
                 $filteredData = filterDataByDate($selected_date, $conn);
-
+            
                 // ตรวจสอบว่ามีข้อมูลหรือไม่
                 if (empty($filteredData)) {
                     // ไม่พบข้อมูลสำหรับวันที่ที่ผู้ใช้เลือก
@@ -96,31 +96,31 @@ error_reporting(1);
                 } else {
                     // สร้างตัวแปรเพื่อเก็บรายชื่อของนักเรียนที่เช็คชื่อ
                     $checkedStudents = array();
-
+            
                     // สร้างตัวแปรเพื่อเก็บจำนวนครั้งที่นักเรียนเช็คชื่อใหม่
                     $newCheckCount = array();
-
+            
                     // แสดงข้อมูลที่พบ
+                    $checkedStudents = [];
+                    $newCheckCount = [];
+            
                     foreach ($filteredData as $row) {
                         $studentID = $row["studentID"];
                         $checkDateTime = $row["created_at"];
-
-                        // ตรวจสอบว่านักเรียนนี้เคยเช็คชื่อหรือยัง
+            
                         if (in_array($studentID, $checkedStudents)) {
-                            // นับครั้งที่นักเรียนเช็คชื่อใหม่
                             $newCheckCount[$studentID]++;
-
+            
                             echo "ชื่อ: $studentID (เช็คชื่อครั้งที่ $newCheckCount[$studentID]) - วันเวลาเช็ค: $checkDateTime<br>";
                         } else {
                             echo "ชื่อ: $studentID - วันเวลาเช็ค: $checkDateTime<br>";
-                            // เพิ่มรายชื่อนักเรียนที่เช็คชื่อเข้าในอาร์เรย์
                             $checkedStudents[] = $studentID;
-                            // กำหนดครั้งเช็คชื่อใหม่เป็น 1
                             $newCheckCount[$studentID] = 1;
                         }
                     }
                 }
             }
+            
                 ?>
 
     </div>

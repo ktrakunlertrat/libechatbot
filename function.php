@@ -176,31 +176,57 @@ function filterDataByMonth($selected_month, $conn) {
 
 
 
+// กรองวันที่ v3 ฉบับรวม ?
 
 
-function filterDataByDate($selected_date, $conn) {
-    // สร้าง SQL query เพื่อกรองข้อมูล
-    $sql = "SELECT * FROM checklistdata WHERE DATE(created_at) = '$selected_date'";
-    
-    // ดำเนินการ query
-    $result = $conn->query($sql);
-    
-    $filteredData = array();
+/// ทดสอบ ฉบับแยก ของการค้นหา
+            function filterDataByYear($selected_year, $conn) {
+                $sql = "SELECT * FROM checklistdata WHERE YEAR(created_at) = '$selected_year'";
+                
+                $result = $conn->query($sql);
+                
+                $filteredData = array();
 
-   if ($result->num_rows > 0) {
-        // เก็บข้อมูลที่พบลงในอาเรย์
-        while ($row = $result->fetch_assoc()) {
-            $filteredData[] = $row;
-       }
-    }
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $filteredData[] = $row;
+                    }
+                }
 
-   return $filteredData;
- }
+                return $filteredData;
+            }
 
+            function filterDataByMonthYear($selected_date, $conn) {
+                $sql = "SELECT * FROM checklistdata WHERE CONCAT(YEAR(created_at), '-', MONTH(created_at)) = '$selected_date'";
+                
+                $result = $conn->query($sql);
+                
+                $filteredData = array();
 
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $filteredData[] = $row;
+                    }
+                }
 
+                return $filteredData;
+            }
 
+            function filterDataByFullDate($selected_date, $conn) {
+                $sql = "SELECT * FROM checklistdata WHERE DATE(created_at) = '$selected_date'";
+                
+                $result = $conn->query($sql);
+                
+                $filteredData = array();
 
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $filteredData[] = $row;
+                    }
+                }
+
+                return $filteredData;
+            }
 
 
 
