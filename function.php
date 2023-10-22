@@ -197,7 +197,7 @@ function filterDataByMonth($selected_month, $conn) {
             }
 
             function filterDataByMonthYear($selected_date, $conn) {
-                $sql = "SELECT * FROM checklistdata WHERE CONCAT(YEAR(created_at), '-', MONTH(created_at)) = '$selected_date'";
+                $sql = "SELECT * FROM checklistdata WHERE DATE_FORMAT(created_at, '%Y-%m') = '$selected_date'";
                 
                 $result = $conn->query($sql);
                 
@@ -227,6 +227,36 @@ function filterDataByMonth($selected_month, $conn) {
 
                 return $filteredData;
             }
+
+// ฟังก์ชันเพื่อแสดงข้อมูลนักเรียน
+function displayStudentData($filteredData) {
+    $checkedStudents = array();
+    $newCheckCount = array();
+
+    foreach ($filteredData as $row) {
+        $studentID = $row["studentID"];
+        $checkDateTime = $row["created_at"];
+
+        if (in_array($studentID, $checkedStudents)) {
+            $newCheckCount[$studentID]++;
+            echo "ชื่อ: $studentID (เช็คชื่อครั้งที่ $newCheckCount[$studentID]) - วันเวลาเช็ค: $checkDateTime<br>";
+        } else {
+            echo "ชื่อ: $studentID - วันเวลาเช็ค: $checkDateTime<br>";
+            $checkedStudents[] = $studentID;
+            $newCheckCount[$studentID] = 1;
+        }
+    }
+    # แสดงสรุป
+    $reversedStudents = array_reverse($checkedStudents);
+    foreach ($reversedStudents as $studentID) {
+        echo "รหัสนักเรียน $studentID มีเช็คชื่อ $newCheckCount[$studentID] ครั้ง <br>";
+    }
+
+
+
+}
+
+
 
 
 

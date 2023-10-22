@@ -78,50 +78,46 @@ error_reporting(1);
         <input type="text" id="selected_date" name="selected_date" placeholder="ป้อนวันที่">
 
         <button type="submit">ค้นหา</button>
-    </form>                                          
-            <?php
-              if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                // รับค่าวันที่จากแบบฟอร์ม
-                $selected_date = $_POST["selected_date"];
-            
-                // แสดงวันที่ที่ผู้ใช้เลือก
-                echo "<p>ข้อมูลสำหรับวันที่: $selected_date</p>";
-            
-                $filteredData = filterDataByDate($selected_date, $conn);
-            
-                // ตรวจสอบว่ามีข้อมูลหรือไม่
-                if (empty($filteredData)) {
-                    // ไม่พบข้อมูลสำหรับวันที่ที่ผู้ใช้เลือก
-                    echo "<p>ไม่พบข้อมูลสำหรับวันที่ $selected_date</p>";
-                } else {
-                    // สร้างตัวแปรเพื่อเก็บรายชื่อของนักเรียนที่เช็คชื่อ
-                    $checkedStudents = array();
-            
-                    // สร้างตัวแปรเพื่อเก็บจำนวนครั้งที่นักเรียนเช็คชื่อใหม่
-                    $newCheckCount = array();
-            
-                    // แสดงข้อมูลที่พบ
-                    $checkedStudents = [];
-                    $newCheckCount = [];
-            
-                    foreach ($filteredData as $row) {
-                        $studentID = $row["studentID"];
-                        $checkDateTime = $row["created_at"];
-            
-                        if (in_array($studentID, $checkedStudents)) {
-                            $newCheckCount[$studentID]++;
-            
-                            echo "ชื่อ: $studentID (เช็คชื่อครั้งที่ $newCheckCount[$studentID]) - วันเวลาเช็ค: $checkDateTime<br>";
-                        } else {
-                            echo "ชื่อ: $studentID - วันเวลาเช็ค: $checkDateTime<br>";
-                            $checkedStudents[] = $studentID;
-                            $newCheckCount[$studentID] = 1;
-                        }
-                    }
-                }
-            }
-            
-                ?>
+    </form>                      
+                        
+                    <?php
+                                
+
+                                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                                    // รับค่าวันที่จากแบบฟอร์ม
+                                    $selected_date = $_POST["selected_date"];
+
+                                    // แสดงวันที่ที่ผู้ใช้เลือก
+                                    echo "<p>ข้อมูลสำหรับ : $selected_date</p";
+
+                                    $filteredData = array();
+
+                                    if (strpos($selected_date, '-') !== false) {
+                                        // ถ้าวันที่มีเครื่องหมาย - แสดงว่าผู้ใช้เลือกเดือน-ปี หรือวัน-เดือน-ปี
+                                        if (strlen($selected_date) === 7) {
+                                            // ถ้าความยาวเป็น 7 ตัวอักษร แสดงว่าเป็นเดือน-ปี
+                                            $filteredData = filterDataByMonthYear($selected_date, $conn);
+                                        } elseif (strlen($selected_date) === 10) {
+                                            // ถ้าความยาวเป็น 10 ตัวอักษร แสดงว่าเป็นวัน-เดือน-ปี
+                                            $filteredData = filterDataByFullDate($selected_date, $conn);
+                                        }
+                                    } else {
+                                        // ถ้าไม่มีเครื่องหมาย - แสดงว่าผู้ใช้เลือกปี
+                                        $filteredData = filterDataByYear($selected_date, $conn);
+                                    }
+
+                                    if (empty($filteredData)) {
+                                        // ไม่พบข้อมูลสำหรับวันที่ที่ผู้ใช้เลือก
+                                        echo "<p>ไม่พบข้อมูลสำหรับ : $selected_date</p>";
+                                    } else {
+                                        // เรียกใช้ฟังก์ชันแสดงข้อมูลนักเรียน
+                                        displayStudentData($filteredData);
+                                        
+                                        
+
+                                    }
+                                }
+                            ?>
 
     </div>
 

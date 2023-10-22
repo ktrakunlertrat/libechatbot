@@ -86,12 +86,14 @@ error_reporting(1);
             <!-- การนำแสดงข้อมูลมาแสดงโชว์ในช่องค้นหา เดือนปี วันเดือนปี เดือน 
             v1 -> ทำการค้นหาได้แค่ วันเดือนปี v2 bug v3 bug (v4*ใช้ตอนนี้)  -->      
             <?php
+                
+
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // รับค่าวันที่จากแบบฟอร์ม
                     $selected_date = $_POST["selected_date"];
 
                     // แสดงวันที่ที่ผู้ใช้เลือก
-                    echo "<p>ข้อมูลสำหรับ : $selected_date</p>";
+                    echo "<p>ข้อมูลสำหรับ : $selected_date</p";
 
                     $filteredData = array();
 
@@ -113,38 +115,15 @@ error_reporting(1);
                         // ไม่พบข้อมูลสำหรับวันที่ที่ผู้ใช้เลือก
                         echo "<p>ไม่พบข้อมูลสำหรับ : $selected_date</p>";
                     } else {
+                        // เรียกใช้ฟังก์ชันแสดงข้อมูลนักเรียน
+                        displayStudentData($filteredData);
+                        
+                        
 
-                    // สร้างตัวแปรเพื่อเก็บรายชื่อของนักเรียนที่เช็คชื่อ
-                    $checkedStudents = array();
-            
-                    // สร้างตัวแปรเพื่อเก็บจำนวนครั้งที่นักเรียนเช็คชื่อใหม่
-                    $newCheckCount = array();
-            
-                    // แสดงข้อมูลที่พบ
-                    $checkedStudents = [];
-                    $newCheckCount = [];
-            
-                    foreach ($filteredData as $row) {
-                        $studentID = $row["studentID"];
-                        $checkDateTime = $row["created_at"];
-            
-                        if (in_array($studentID, $checkedStudents)) {
-                            $newCheckCount[$studentID]++;
-            
-                            echo "ชื่อ: $studentID (เช็คชื่อครั้งที่ $newCheckCount[$studentID]) - วันเวลาเช็ค: $checkDateTime<br>";
-                        } else {
-                            echo "ชื่อ: $studentID - วันเวลาเช็ค: $checkDateTime<br>";
-                            $checkedStudents[] = $studentID;
-                            $newCheckCount[$studentID] = 1;
-                        }
-                    }
-                    // แสดงบรรทัดสรุป
-                        foreach ($checkedStudents as $studentID) {
-                            echo "รหัสนักเรียน $studentID มีเช็คชื่อครั้งสุดท้ายที่ $newCheckCount[$studentID]<br>";
-                        }
                     }
                 }
-                ?>
+            ?>
+
 
 
 
