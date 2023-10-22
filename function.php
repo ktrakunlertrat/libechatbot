@@ -239,9 +239,9 @@ function displayStudentData($filteredData) {
 
         if (in_array($studentID, $checkedStudents)) {
             $newCheckCount[$studentID]++;
-            echo "ชื่อ: $studentID (เช็คชื่อครั้งที่ $newCheckCount[$studentID]) - วันเวลาเช็ค: $checkDateTime<br>";
+            echo "รหัสนักเรียน: $studentID (เช็คชื่อครั้งที่ $newCheckCount[$studentID]) - วันเวลาเช็ค: $checkDateTime<br>";
         } else {
-            echo "ชื่อ: $studentID - วันเวลาเช็ค: $checkDateTime<br>";
+            echo "รหัสนักเรียน: $studentID - วันเวลาเช็ค: $checkDateTime<br>";
             $checkedStudents[] = $studentID;
             $newCheckCount[$studentID] = 1;
         }
