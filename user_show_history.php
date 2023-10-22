@@ -38,9 +38,12 @@ error_reporting(1);
               <div class="navbar-nav">
                 <img src="ass/NULOGO-Download-297x300.png" alt="logo" width="50" height="50">
                 
-                <a class="nav-item nav-link active" href="user_index.php">Home</a>
-                <a class="nav-item nav-link" href="user_scanner.php">เช็คชื่อ</a>
-                <a class="nav-item nav-link" href="user_show_history.php">ประวัติการเข้าเรียน (current) </a>
+                <a class="nav-item nav-link active" href="index.php">Home</a>
+                <a class="nav-item nav-link" href="scanner.php">เช็คชื่อ</a>
+                
+                <a class="nav-item nav-link" href="show_stu.php">ข้อมูลนักเรียนในระบบ</a>
+                <a class="nav-item nav-link" href="show_history.php">ประวัติการเข้าเรียน (current) </a>
+                <a class="nav-item nav-link" href="page_addrole.php">เพิ่มบทบาท</a>
                 <a class="nav-item nav-link" href="logout.php">Logout</a>
 
               </div>
@@ -60,69 +63,78 @@ error_reporting(1);
     </head>
 
         <body background="ass/Background.png">
-        <div class="row justify-content-md-center">
-            <div class="container py-5">   <br>
-                    <div class="col-md-auto">
-                        <h1 class="text-center" style="color: black;">ประวัติการเข้าเรียน</h1><br>
+                    <div class="row justify-content-md-center">
+                    <div class="container py-5">   <br>
+                   
+                     <div class="col-md-auto">
+                    <h1 class="text-center" style="color: black;">ประวัติการเข้าเรียน</h1><br>
                     </div>
 
         
 
-                    <div class="container">
-  <div class="row">
-    <div class="col">
-       <!-- ส่วนของแนวคอลัมที่ 1 -->
+            <div class="container-xxl">
+             <div class="row">
+                  
+            <div class="col">
+            <!-- ส่วนของแนวคอลัมที่ 1 -->
+        <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                <label for="selected_date">กรอกวันที่ (รูปแบบ: YYYY-MM-DD):</label>
+                <input type="text" id="selected_date" name="selected_date" placeholder="ป้อนวันที่">
+                <button type="submit">ค้นหา</button> <br><br>
+        </form>              
 
-       <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-        <label for="selected_date">กรอกวันที่ (รูปแบบ: YYYY-MM-DD):</label>
-        <input type="text" id="selected_date" name="selected_date" placeholder="ป้อนวันที่">
+            <!-- การนำแสดงข้อมูลมาแสดงโชว์ในช่องค้นหา เดือนปี วันเดือนปี เดือน 
+            v1 -> ทำการค้นหาได้แค่ วันเดือนปี v2 bug v3 bug (v4*ใช้ตอนนี้)  -->      
+            <?php
+                
 
-        <button type="submit">ค้นหา</button>
-    </form>                      
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    // รับค่าวันที่จากแบบฟอร์ม
+                    $selected_date = $_POST["selected_date"];
+
+                    // แสดงวันที่ที่ผู้ใช้เลือก
+                    echo "<p>ข้อมูลสำหรับ : $selected_date</p";
+
+                    $filteredData = array();
+
+                    if (strpos($selected_date, '-') !== false) {
+                        // ถ้าวันที่มีเครื่องหมาย - แสดงว่าผู้ใช้เลือกเดือน-ปี หรือวัน-เดือน-ปี
+                        if (strlen($selected_date) === 7) {
+                            // ถ้าความยาวเป็น 7 ตัวอักษร แสดงว่าเป็นเดือน-ปี
+                            $filteredData = filterDataByMonthYear($selected_date, $conn);
+                        } elseif (strlen($selected_date) === 10) {
+                            // ถ้าความยาวเป็น 10 ตัวอักษร แสดงว่าเป็นวัน-เดือน-ปี
+                            $filteredData = filterDataByFullDate($selected_date, $conn);
+                        }
+                    } else {
+                        // ถ้าไม่มีเครื่องหมาย - แสดงว่าผู้ใช้เลือกปี
+                        $filteredData = filterDataByYear($selected_date, $conn);
+                    }
+
+                    if (empty($filteredData)) {
+                        // ไม่พบข้อมูลสำหรับวันที่ที่ผู้ใช้เลือก
+                        echo "<p>ไม่พบข้อมูลสำหรับ : $selected_date</p>";
+                    } else {
+                        // เรียกใช้ฟังก์ชันแสดงข้อมูลนักเรียน
+                        displayStudentData($filteredData);
                         
-                    <?php
-                                
+                        
 
-                                if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                                    // รับค่าวันที่จากแบบฟอร์ม
-                                    $selected_date = $_POST["selected_date"];
+                    }
+                }
+            ?>
 
-                                    // แสดงวันที่ที่ผู้ใช้เลือก
-                                    echo "<p>ข้อมูลสำหรับ : $selected_date</p";
 
-                                    $filteredData = array();
 
-                                    if (strpos($selected_date, '-') !== false) {
-                                        // ถ้าวันที่มีเครื่องหมาย - แสดงว่าผู้ใช้เลือกเดือน-ปี หรือวัน-เดือน-ปี
-                                        if (strlen($selected_date) === 7) {
-                                            // ถ้าความยาวเป็น 7 ตัวอักษร แสดงว่าเป็นเดือน-ปี
-                                            $filteredData = filterDataByMonthYear($selected_date, $conn);
-                                        } elseif (strlen($selected_date) === 10) {
-                                            // ถ้าความยาวเป็น 10 ตัวอักษร แสดงว่าเป็นวัน-เดือน-ปี
-                                            $filteredData = filterDataByFullDate($selected_date, $conn);
-                                        }
-                                    } else {
-                                        // ถ้าไม่มีเครื่องหมาย - แสดงว่าผู้ใช้เลือกปี
-                                        $filteredData = filterDataByYear($selected_date, $conn);
-                                    }
 
-                                    if (empty($filteredData)) {
-                                        // ไม่พบข้อมูลสำหรับวันที่ที่ผู้ใช้เลือก
-                                        echo "<p>ไม่พบข้อมูลสำหรับ : $selected_date</p>";
-                                    } else {
-                                        // เรียกใช้ฟังก์ชันแสดงข้อมูลนักเรียน
-                                        displayStudentData($filteredData);
-                                        
-                                        
 
-                                    }
-                                }
-                            ?>
+         
 
     </div>
 
-    <div class="col order-5">
+    <div class="col ">
       <!-- ส่วนของแนวคอลัมที่ 2 -->
+      <br>
                                 <form method="post" action="">
                             <label for="student_id">ค้นหา Student ID:</label>
                             <input type="text" name="student_id">
@@ -154,9 +166,11 @@ error_reporting(1);
                                     }
                                 }
                             ?>
+                            
     </div>
-    <div class="col order-1">
+    <div class="col ">
       <!-- ส่วนของแนวคอลัมที่ 3 -->
+      <br>
                                 <button id="showChecklistButton">Show Checklist</button> กดซ้ำเพื่อ ล่าสุด/เก่าสุด
                         <table class="table" id="checklistTable" style="display: none;">
                             <thead>
@@ -178,7 +192,8 @@ error_reporting(1);
                                 <?php endwhile; ?>
                             </tbody>
                         </table>
-
+                       
+            
                         <script>
                             var checklistTable = document.getElementById('checklistTable');
                             var sortOrder = 'desc';
@@ -217,6 +232,9 @@ error_reporting(1);
                                     });
                                     checklistTable.style.display = 'table';
                                 }
+                                // อัปเดตแสดงจำนวนยอด
+                                var recordCount = rows.length;
+                                document.getElementById('recordCount').textContent = 'จำนวนยอดทั้งหมด: ' + recordCount;
                             });
                         </script>
     </div>
