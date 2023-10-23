@@ -38,12 +38,9 @@ error_reporting(1);
               <div class="navbar-nav">
                 <img src="ass/NULOGO-Download-297x300.png" alt="logo" width="50" height="50">
                 
-                <a class="nav-item nav-link active" href="index.php">Home</a>
-                <a class="nav-item nav-link" href="scanner.php">เช็คชื่อ</a>
-                
-                <a class="nav-item nav-link" href="show_stu.php">ข้อมูลนักเรียนในระบบ</a>
-                <a class="nav-item nav-link" href="show_history.php">ประวัติการเข้าเรียน (current) </a>
-                <a class="nav-item nav-link" href="page_addrole.php">เพิ่มบทบาท</a>
+                <a class="nav-item nav-link active" href="user_index.php">Home</a>
+                <a class="nav-item nav-link" href="user_Scanner.php">เช็คชื่อ</a>
+                <a class="nav-item nav-link" href="user_show_history.php">ประวัติการเข้าเรียน (current) </a>
                 <a class="nav-item nav-link" href="logout.php">Logout</a>
 
               </div>

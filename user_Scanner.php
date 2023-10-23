@@ -28,7 +28,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'user') {
                 <img src="ass/NULOGO-Download-297x300.png" alt="logo" width="50" height="50">
 
                 <a class="nav-item nav-link active" href="user_index.php">Home</a>
-                <a class="nav-item nav-link" href="user_scanner.php">เช็คชื่อ (current) </a>
+                <a class="nav-item nav-link" href="user_Scanner.php">เช็คชื่อ (current) </a>
                 <a class="nav-item nav-link" href="user_show_history.php">ประวัติการเข้าเรียน</a>
                 <a class="nav-item nav-link" href="logout.php">Logout</a>
 
@@ -48,7 +48,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'user') {
 
     </head>
     <body background="ass/Background.png">
-        <form class="d-flex" action="store_scanned.php" method="post">
+        <form class="d-flex" action="store_user_scanned.php" method="post">
             <label for="scannerInput">Scan Value:</label>
             <input class="form" type="text" id="scannerInput" name="scannerInput" autofocus >
             <button type="submit">Submit</button>
