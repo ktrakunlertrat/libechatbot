@@ -48,7 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excel_file'])) {
 
         if ($stmt_check->num_rows > 0) {
             // ถ้า studentID ซ้ำกันแล้ว ให้ทำการอัปเดตหรือจัดการตามที่คุณต้องการ
-            // ตัวอย่าง: อัปเดตข้อมูล
             $query = "UPDATE students SET firstName = ?, lastName = ? WHERE studentID = ?";
             $stmt_update = $conn->prepare($query);
             $stmt_update->bind_param('ssi', $firstName, $lastName, $studentID);
