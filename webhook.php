@@ -32,7 +32,7 @@ if (!empty($events['events'])) {
         $messages = array(
             'type' => 'text',
             // 'text' => 'Reply message : '.$event['message']['text']."\nUser ID : ".$event['source']['userId'],
-            'text' => 'Reply message:' . "\n" . 'รหัสนักเรียนถูกบันทึกโดยผู้ใช้อื่นแล้ว ถ้าต้องการแก้ไขให้ติดต่อกับเจ้าหน้าที่',
+            'text' => 'Reply message:' . "\n" . 'ผู้ใช้ได้ผูกกับรหัสนักเรียนอื่นแล้วและไม่สามารถเพิ่มได้มากกว่า 1 ถ้าต้องการแก้ไขให้ติดต่อกับเจ้าหน้าที่',
         );
         $post = json_encode(array(
             'replyToken' => $event['replyToken'],
@@ -98,18 +98,6 @@ if (!empty($events['events'])) {
     
     $conn->close();
             
-        
-            
-
-            
-            
-
-
-
-
-
-
-
         }
         //เก็บข้อมูลลง DB
         $conn = createDBConnection();
