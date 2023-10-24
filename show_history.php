@@ -43,6 +43,7 @@ error_reporting(1);
                 
                 <a class="nav-item nav-link" href="show_stu.php">ข้อมูลนักเรียนในระบบ</a>
                 <a class="nav-item nav-link" href="show_history.php">ประวัติการเข้าเรียน (current) </a>
+                <a class="nav-item nav-link" href="stu_stat.php">กราฟ</a>
                 <a class="nav-item nav-link" href="page_addrole.php">เพิ่มบทบาท</a>
                 <a class="nav-item nav-link" href="logout.php">Logout</a>
 
