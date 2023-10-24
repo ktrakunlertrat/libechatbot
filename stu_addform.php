@@ -11,6 +11,68 @@ $conn = createDBConnection();
     header("Location: login.php");
     exit();
 }
+
+
+// อัพเดตล่าสุด เพิ่มการใช้งาน phpspreadsheet
+require 'vendor/autoload.php';
+
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excel_file'])) {
+  $file = $_FILES['excel_file']['tmp_name'];
+  $spreadsheet = IOFactory::load($file);
+  $worksheet = $spreadsheet->getActiveSheet();
+
+  // สร้างการเชื่อมต่อกับฐานข้อมูล MySQL
+  $conn = createDBConnection();
+
+  if (!$conn) {
+      die('การเชื่อมต่อกับฐานข้อมูลล้มเหลว');
+  }
+
+  // ลูปผ่านข้อมูลใน Excel และบันทึกลงในฐานข้อมูล
+  foreach ($worksheet->getRowIterator() as $row) {
+      $rowData = $row->getCellIterator();
+      $studentID = $rowData->current()->getValue();
+      $rowData->next();
+      $firstName = $rowData->current()->getValue();
+      $rowData->next();
+      $lastName = $rowData->current()->getValue();
+
+              // ตรวจสอบว่า studentID ไม่ซ้ำกันก่อนที่จะทำการบันทึก
+        $query = "SELECT studentID FROM students WHERE studentID = ?";
+        $stmt_check = $conn->prepare($query);
+        $stmt_check->bind_param('i', $studentID);
+        $stmt_check->execute();
+        $stmt_check->store_result();
+
+        if ($stmt_check->num_rows > 0) {
+            // ถ้า studentID ซ้ำกันแล้ว ให้ทำการอัปเดตหรือจัดการตามที่คุณต้องการ
+            // ตัวอย่าง: อัปเดตข้อมูล
+            $query = "UPDATE students SET firstName = ?, lastName = ? WHERE studentID = ?";
+            $stmt_update = $conn->prepare($query);
+            $stmt_update->bind_param('ssi', $firstName, $lastName, $studentID);
+
+            if ($stmt_update->execute()) {
+                echo "อัปเดตข้อมูลสำเร็จ: Student ID: $studentID, First Name: $firstName, Last Name: $lastName<br>";
+            } else {
+                echo "เกิดข้อผิดพลาดในการอัปเดตข้อมูล: " . $stmt_update->error;
+            }
+        } else {
+            // ถ้า studentID ไม่ซ้ำกัน ให้ทำการเพิ่มข้อมูล
+            $query = "INSERT INTO students (studentID, firstName, lastName) VALUES (?, ?, ?)";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param('iss', $studentID, $firstName, $lastName);
+
+            if ($stmt->execute()) {
+                echo "บันทึกข้อมูลสำเร็จ: Student ID: $studentID, First Name: $firstName, Last Name: $lastName<br>";
+            } else {
+                echo "เกิดข้อผิดพลาดในการบันทึกข้อมูล: " . $stmt->error;
+            }
+        }
+      }
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +118,8 @@ $conn = createDBConnection();
             }
           </style>
 
+
+
     </head>
 
 <body background="ass/Background.png">
@@ -91,8 +155,26 @@ $conn = createDBConnection();
             </form>
 </div>
 
+<br>
+<br>
+<br>
+<div class="row justify-content-md-center">
+<div class="col col-lg-2"></div>
+<div class="col-md">
+  นำเข้าด้วยไฟล์ Excel
+      <form method="post" enctype="multipart/form-data">
+              <input type="file" name="excel_file">
+              <input type="submit" value="นำเข้า Excel">
+      </form>
+</div>
+</div>
+</div>
+
 <?php mysqli_close($conn); ?>
 
+
 </body>
+
+
 
 </html>
