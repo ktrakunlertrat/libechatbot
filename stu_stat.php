@@ -5,6 +5,32 @@
     header("Location: login.php");
     exit();
 }
+include 'db_connection.php';
+
+// เชื่อมต่อฐานข้อมูล
+$conn = createDBConnection();
+
+// ตรวจสอบว่ามีข้อมูลจากฟอร์มหรือไม่
+if (isset($_POST['startTimestamp']) && isset($_POST['endTimestamp'])) {
+    // รับช่วงเวลาจากฟอร์ม
+    $startTimestamp = $_POST['startTimestamp'];
+    $endTimestamp = $_POST['endTimestamp'];
+
+    // นับจำนวนนักเรียนทั้งหมด
+    $sqlTotal = "SELECT COUNT(*) AS totalStudents FROM students";
+    $resultTotal = mysqli_query($conn, $sqlTotal);
+    $rowTotal = mysqli_fetch_assoc($resultTotal);
+    $totalStudents = $rowTotal['totalStudents'];
+
+    // นับจำนวนนักเรียนที่เช็คชื่อในช่วงเวลา
+    $sqlChecked = "SELECT COUNT(DISTINCT studentID) AS checkedCount FROM checklistdata WHERE created_at BETWEEN '$startTimestamp' AND '$endTimestamp'";
+    $resultChecked = mysqli_query($conn, $sqlChecked);
+    $rowChecked = mysqli_fetch_assoc($resultChecked);
+    $checkedCount = $rowChecked['checkedCount'];
+
+    // นับจำนวนนักเรียนที่ขาดในช่วงเวลา
+    $missingCount = $totalStudents - $checkedCount; // คำนวณจากข้อมูลที่มี
+}
 ?>
 
 
@@ -17,6 +43,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title> NCS  </title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
         
         <nav class= " navbar navbar-expand-lg">
@@ -58,13 +85,14 @@
           </style>
     </head>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ 
 
     <body background="ass/Background.png">
+    <div class="container">
 
    
 
-    <form method="post" action="stu_stat_funtion.php">
+    <form method="post" action="stu_stat.php">
     <label for="startTimestamp">เริ่มต้นช่วงเวลา:</label>
     <input type="datetime-local" name="startTimestamp" id="startTimestamp" required>
 
@@ -74,15 +102,51 @@
     <button type="submit">ค้นหา</button>
     </form>
 
-   
+    <!-- ส่วนการแสดงกราฟ --> <br>
+    <div class="row">
+            <div class="col-md-6">
+    <canvas id="myChart" style="width: 25px; height: 25px;"></canvas>
+    </div>
+        </div> 
 
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['นักเรียนทั้งหมด', 'นักเรียนที่เช็คชื่อ', 'นักเรียนที่ขาด'],
+                datasets: [{
+                    label: 'จำนวนคน',
+                    data: [<?= $totalStudents ?>, <?= $checkedCount ?>, <?= $missingCount ?>],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(255, 206, 86, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
     
  
 
 
 
     
-
+    </div>
 </body>
 
 </html>
