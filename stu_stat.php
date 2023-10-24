@@ -4,24 +4,20 @@
   if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
     header("Location: login.php");
     exit();
-
-   include 'function.php';
-   include 'db_connection.php';
-   $conn = createDBConnection();
 }
-
 ?>
+
 
 
 <!DOCTYPE html>
 <html>
     <head>
+    
+    
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title> NCS  </title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-        
-        
         
         <nav class= " navbar navbar-expand-lg">
             <a class="navbar-brand" href="#"></a>
@@ -60,78 +56,33 @@
               opacity: 50%;
             }
           </style>
-
     </head>
 
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <body background="ass/Background.png">
 
+   
 
-    <form method="post" action="your_php_script.php">
-        <label for="start_date">วันเริ่มต้น:</label>
-        <input type="date" id="start_date" name="start_date" required>
-      
-        <label for="end_date">วันสิ้นสุด:</label>
-        <input type="date" id="end_date" name="end_date" required>
-      
-        <input type="submit" value="ค้นหา">
+    <form method="post" action="stu_stat_funtion.php">
+    <label for="startTimestamp">เริ่มต้นช่วงเวลา:</label>
+    <input type="datetime-local" name="startTimestamp" id="startTimestamp" required>
+
+    <label for="endTimestamp">สิ้นสุดช่วงเวลา:</label>
+    <input type="datetime-local" name="endTimestamp" id="endTimestamp" required>
+
+    <button type="submit">ค้นหา</button>
     </form>
-      
-      
-    <?php
-            // ดึงข้อมูลจากตาราง students
-        $sql = "SELECT studentID FROM students";
-        $result = $conn->query($sql);
 
+   
 
-        $studentIDs = array(); // เก็บรายชื่อ studentID
-
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $studentIDs[] = $row["studentID"];
-            }
-        }
-
-       
-       
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-          $start_date = $_POST["start_date"];
-          $end_date = $_POST["end_date"];
-        
-          // ตรวจสอบว่า $start_date และ $end_date ถูกต้องหรือไม่
-        
-          $sql = "SELECT studentID, COUNT(*) as absent_count FROM checklistdata
-                  WHERE created_at BETWEEN '$start_date' AND '$end_date'
-                  GROUP BY studentID";
-          
-          // ต่อ database และดำเนินการ query ได้เหมือนเดิม
-          $result = $conn->query($sql);
-        
-          // ใช้ $result เพื่อดึงข้อมูลที่คุณต้องการ
-        }
-        
-        
+    
+ 
 
 
 
+    
 
-    ?>
+</body>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </body>
 </html>
