@@ -24,14 +24,13 @@ if (!empty($events['events'])) {
     $result = $conn->query($query);
     
     if ($result->num_rows > 0) {
-        // studentID ตรงกัน ตรวจสอบว่า user_id มีอยู่ในตาราง linelink หรือไม่
+        // ตรวจสอบว่า user_id มีอยู่ในตาราง linelink หรือไม่
         $check_sql = "SELECT user_id FROM linelink WHERE user_id = '$user_id'";
         $check_result = $conn->query($check_sql);
         
-        //ข้อความที่ตอบกลับไปหาผู้ใช้
+        // ข้อความที่ตอบกลับไปหาผู้ใช้
         $messages = array(
             'type' => 'text',
-            // 'text' => 'Reply message : '.$event['message']['text']."\nUser ID : ".$event['source']['userId'],
             'text' => 'Reply message:' . "\n" . 'ผู้ใช้ได้ผูกกับรหัสนักเรียนอื่นแล้วและไม่สามารถเพิ่มได้มากกว่า 1 ถ้าต้องการแก้ไขให้ติดต่อกับเจ้าหน้าที่',
         );
         $post = json_encode(array(
@@ -43,21 +42,19 @@ if (!empty($events['events'])) {
             // user_id ยังไม่มีอยู่ในตาราง linelink ให้เพิ่มข้อมูล
             $insert_sql = "INSERT INTO linelink (user_id, studentID) VALUES ('$user_id', '$message')";
             $conn->query($insert_sql);
-
-            //ข้อความที่ตอบกลับไปหาผู้ใช้
+    
+            // ข้อความที่ตอบกลับไปหาผู้ใช้
             $messages = array(
                 'type' => 'text',
-                // 'text' => 'Reply message : '.$event['message']['text']."\nUser ID : ".$event['source']['userId'],
                 'text' => 'Reply message:' . "\n" . 'User ID: บันทึกเรียบร้อย ถ้าต้องการแก้ไขให้ติดต่อกับเจ้าหน้าที่',
             );
             $post = json_encode(array(
                 'replyToken' => $event['replyToken'],
                 'messages' => array($messages),
             ));
-
-
         }
     }
+    
     else {
         // ถ้าไม่พบ studentID ใน students
         if (strlen($message) !== 8) {
