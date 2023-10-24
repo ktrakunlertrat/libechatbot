@@ -24,11 +24,11 @@ if (!empty($events['events'])) {
     $result = $conn->query($query);
     
     if ($result->num_rows > 0) {
-        // ตรวจสอบว่า user_id มีอยู่ในตาราง linelink หรือไม่
+        // studentID ตรงกัน ตรวจสอบว่า user_id มีอยู่ในตาราง linelink หรือไม่
         $check_sql = "SELECT user_id FROM linelink WHERE user_id = '$user_id'";
         $check_result = $conn->query($check_sql);
-        
-        // ข้อความที่ตอบกลับไปหาผู้ใช้
+    
+        //ข้อความที่ตอบกลับไปหาผู้ใช้
         $messages = array(
             'type' => 'text',
             'text' => 'Reply message:' . "\n" . 'ผู้ใช้ได้ผูกกับรหัสนักเรียนอื่นแล้วและไม่สามารถเพิ่มได้มากกว่า 1 ถ้าต้องการแก้ไขให้ติดต่อกับเจ้าหน้าที่',
@@ -37,23 +37,41 @@ if (!empty($events['events'])) {
             'replyToken' => $event['replyToken'],
             'messages' => array($messages),
         ));
-        
+    
         if ($check_result->num_rows == 0) {
             // user_id ยังไม่มีอยู่ในตาราง linelink ให้เพิ่มข้อมูล
-            $insert_sql = "INSERT INTO linelink (user_id, studentID) VALUES ('$user_id', '$message')";
-            $conn->query($insert_sql);
+            // ตรวจสอบก่อนว่า studentID ที่จะเพิ่มมีอยู่ในตารางหรือยัง
+            $check_student_sql = "SELECT studentID FROM linelink WHERE studentID = '$message'";
+            $check_student_result = $conn->query($check_student_sql);
     
-            // ข้อความที่ตอบกลับไปหาผู้ใช้
-            $messages = array(
-                'type' => 'text',
-                'text' => 'Reply message:' . "\n" . 'User ID: บันทึกเรียบร้อย ถ้าต้องการแก้ไขให้ติดต่อกับเจ้าหน้าที่',
-            );
-            $post = json_encode(array(
-                'replyToken' => $event['replyToken'],
-                'messages' => array($messages),
-            ));
+            if ($check_student_result->num_rows == 0) {
+                // studentID ยังไม่มีอยู่ในตาราง linelink ให้เพิ่มข้อมูล
+                $insert_sql = "INSERT INTO linelink (user_id, studentID) VALUES ('$user_id', '$message')";
+                $conn->query($insert_sql);
+    
+                //ข้อความที่ตอบกลับไปหาผู้ใช้
+                $messages = array(
+                    'type' => 'text',
+                    'text' => 'Reply message:' . "\n" . 'User ID: บันทึกเรียบร้อย ถ้าต้องการแก้ไขให้ติดต่อกับเจ้าหน้าที่',
+                );
+                $post = json_encode(array(
+                    'replyToken' => $event['replyToken'],
+                    'messages' => array($messages),
+                ));
+            } else {
+                // ถ้า studentID มีอยู่ในตารางแล้ว
+                $messages = array(
+                    'type' => 'text',
+                    'text' => 'Reply message:' . "\n" . 'Student ID นี้มีอยู่แล้วในระบบ',
+                );
+                $post = json_encode(array(
+                    'replyToken' => $event['replyToken'],
+                    'messages' => array($messages),
+                ));
+            }
         }
     }
+    
     
     else {
         // ถ้าไม่พบ studentID ใน students
