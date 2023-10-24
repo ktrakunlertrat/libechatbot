@@ -5,14 +5,11 @@
     header("Location: login.php");
     exit();
 
-
-
-
    include 'function.php';
    include 'db_connection.php';
-
    $conn = createDBConnection();
 }
+
 ?>
 
 
@@ -44,7 +41,7 @@
 
             <a class="nav-item nav-link" href="show_history.php">ประวัติการเข้าเรียน</a>
 
-            <a class="nav-item nav-link" href="stu_stat.php">กราฟ (current)</a>
+            <a class="nav-item nav-link" href="stu_stat.php"> สถิติ (current)</a>
             
             <a class="nav-item nav-link" href="page_addrole.php">เพิ่มบทบาท</a>
 
